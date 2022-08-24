@@ -1,0 +1,43 @@
+service: treasure-functions
+frameworkVersion: "3"
+
+plugins:
+  - serverless-plugin-common-excludes
+  - serverless-plugin-include-dependencies
+
+provider:
+  name: aws
+  stage: prod
+  region: us-east-1
+  runtime: nodejs14.x
+
+package:
+  individually: true
+
+functions:
+  # /magic
+  getMagicTotalSupply:
+    handler: src/handlers/magic.getTotalSupply
+    events:
+      - httpApi:
+          path: /magic/total-supply
+          method: get
+      - httpApi:
+          path: /total-supply
+          method: get
+  getMagicCirculatingSupply:
+    handler: src/handlers/magic.getCirculatingSupply
+    events:
+      - httpApi:
+          path: /magic/circulating-supply
+          method: get
+      - httpApi:
+          path: /circulating-supply
+          method: get
+  # /mines
+  getMines:
+    handler: src/handlers/mine.getMines
+    events:
+      - httpApi:
+          path: /mines
+          method: get

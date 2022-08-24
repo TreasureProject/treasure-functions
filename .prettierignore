@@ -1,0 +1,7 @@
+.github/
+.husky/
+.serverless/
+node_modules/
+.prettierignore
+.prettierrc
+package-lock.json

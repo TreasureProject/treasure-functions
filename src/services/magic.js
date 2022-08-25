@@ -19,10 +19,12 @@ exports.getMagicCirculatingSupply = async () => {
     totalSupply,
     totalExcluded,
     circulatingSupply: totalSupply - totalExcluded,
-    excludedBalances: Object.entries(CIRCULATING_SUPPLY_EXCLUDED).map(([name, address], i) => ({
-      address,
-      name,
-      balance: excludedBalances[i],
-    })),
+    excludedBalances: Object.entries(CIRCULATING_SUPPLY_EXCLUDED).map(
+      ([name, address], i) => ({
+        address,
+        name,
+        balance: excludedBalances[i],
+      })
+    ),
   };
 };

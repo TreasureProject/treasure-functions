@@ -1,0 +1,32 @@
+name: Deploy functions
+
+on:
+  # pull_request:
+  #   types: [opened, ready_for_review, synchronize]
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    name: Deploy functions
+    needs: changes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Install Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name: Install dependencies
+        run: npm install
+      - name: Lint code
+        run: npm run lint
+      - name: Test
+        run: npm test
+      # - name: Deploy to DEV
+      #   if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
+      #   run: npm run deploy
+      - name: Deploy to PROD
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: npm run deploy

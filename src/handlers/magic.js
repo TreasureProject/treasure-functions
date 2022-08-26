@@ -2,28 +2,16 @@ const {
   getMagicCirculatingSupply,
   getMagicTotalSupply,
 } = require("../services/magic");
+const { createJsonResponse } = require("../utils/handler");
 
 exports.getTotalSupply = async () => {
-  const data = await getMagicTotalSupply();
-  return {
-    statusCode: 200,
-    headers: {
-      "content-type": "application/json",
-    },
-    body: JSON.stringify(data),
-  };
+  const { totalSupply } = await getMagicTotalSupply();
+  return createJsonResponse(totalSupply);
 };
 
 exports.getCirculatingSupply = async (event) => {
-  const showMore =
-    event && event.queryStringParameters && event.queryStringParameters.more;
-  const data = await getMagicCirculatingSupply();
-  console.log(data);
-  return {
-    statusCode: 200,
-    headers: {
-      "content-type": "application/json",
-    },
-    body: JSON.stringify(showMore ? data : data.circulatingSupply),
-  };
+  const variant = event?.queryStringParameters?.variant ?? "default";
+  const showMore = !!event?.queryStringParameters?.more;
+  const data = await getMagicCirculatingSupply(variant);
+  return createJsonResponse(showMore ? data : data.circulatingSupply);
 };

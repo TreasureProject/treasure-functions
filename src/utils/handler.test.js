@@ -8,7 +8,9 @@ describe("handler utils", () => {
       headers: {
         "content-type": "application/json",
       },
-      body: '{"key":"value"}',
+      body: `{
+  "key": "value"
+}`,
     });
   });
 });

@@ -14,12 +14,17 @@ const magic = new Contract(
 
 const magicL1 = new Contract(
   CONTRACT_MAGIC_L1,
-  ["function totalSupply() view returns (uint256)"],
+  [
+    "function balanceOf(address) view returns (uint256)",
+    "function totalSupply() view returns (uint256)",
+  ],
   ethereumProvider
 );
 
 exports.getMagicTotalSupply = async () =>
   parseNumber(await magicL1.totalSupply());
 
-exports.getMagicBalanceOf = async (address) =>
-  parseNumber(await magic.balanceOf(address));
+exports.getMagicBalanceOf = async (address, isL1 = false) =>
+  parseNumber(
+    isL1 ? await magicL1.balanceOf(address) : await magic.balanceOf(address)
+  );

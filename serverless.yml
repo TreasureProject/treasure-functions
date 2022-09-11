@@ -3,9 +3,9 @@ frameworkVersion: "3"
 
 useDotenv: true
 
-plugins:
-  - serverless-plugin-common-excludes
-  - serverless-plugin-include-dependencies
+# plugins:
+#   - serverless-plugin-common-excludes
+#   - serverless-plugin-include-dependencies
 
 provider:
   name: aws
@@ -19,7 +19,7 @@ provider:
 
 package:
   individually: true
-  excludeDevDependencies: false
+  # excludeDevDependencies: false
 
 functions:
   # /magic

@@ -3,10 +3,6 @@ frameworkVersion: "3"
 
 useDotenv: true
 
-plugins:
-  - serverless-plugin-common-excludes
-  - serverless-plugin-include-dependencies
-
 provider:
   name: aws
   stage: prod

@@ -5,7 +5,7 @@ const {
 const { createJsonResponse } = require("../utils/handler");
 
 exports.getTotalSupply = async () => {
-  const { totalSupply } = await getMagicTotalSupply();
+  const totalSupply = await getMagicTotalSupply();
   return createJsonResponse(totalSupply);
 };
 

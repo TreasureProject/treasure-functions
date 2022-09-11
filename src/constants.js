@@ -85,12 +85,14 @@ module.exports = {
     "Realm Treasury": ["0x265102a516f98e3FAB001eD6686633000a5526D5"],
     "Tales of Elleria Treasury": ["0x69832Af74774baE99D999e7F74FE3F7d5833bF84"],
     "SamuRise Treasury": ["0xed051407d3E1529857B8a23f128Aa60cb90f91C2"],
-    "Harvesters (Kameji)": ["0xdf9f9ca6ee5c3024b64dcecbadc462c0b896147a"],
+    "Harvester (Kameji)": ["0xdf9f9ca6ee5c3024b64dcecbadc462c0b896147a"],
     "Harvester (Shinoba)": ["0x2b1de6d22e6cb9178b3ecbcb7f20b62fcce925d4"],
+    "Harvester (Asiterra)": ["0x88bf661446c8f5a7072c0f75193dae0e18ae40bc"],
   },
   MINE_NAME_MAPPING: {
     "0xdf9f9ca6ee5c3024b64dcecbadc462c0b896147a": "Kameji",
     "0x2b1de6d22e6cb9178b3ecbcb7f20b62fcce925d4": "Shinoba",
+    "0x88bf661446c8f5a7072c0f75193dae0e18ae40bc": "Asiterra",
     "0xa0a89db1c899c49f98e6326b764bafcf167fc2ce": "Atlas Mine",
   },
 };

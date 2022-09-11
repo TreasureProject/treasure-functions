@@ -1,7 +1,8 @@
 module.exports = {
   // Providers
-  JSON_RPC_ETHEREUM: "https://cloudflare-eth.com",
-  JSON_RPC_ARBITRUM: "https://arb1.arbitrum.io/rpc",
+  JSON_RPC_ETHEREUM: `https://eth-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_KEY_ETHEREUM}`,
+  JSON_RPC_ARBITRUM: `https://arb-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_KEY_ARBITRUM}`,
+  JSON_RPC_ARBITRUM_RINKEBY: `https://arb-rinkeby.g.alchemy.com/v2/${process.env.ALCHEMY_KEY_ARBITRUM_RINKEBY}`,
   // Addresses
   BURN_ADDRESS: "0x0000000000000000000000000000000000000000",
   CONTRACT_MAGIC: "0x539bde0d7dbd336b79148aa742883198bbf60342",

@@ -1,6 +1,8 @@
 service: treasure-functions
 frameworkVersion: "3"
 
+useDotenv: true
+
 plugins:
   - serverless-plugin-common-excludes
   - serverless-plugin-include-dependencies
@@ -10,6 +12,10 @@ provider:
   stage: prod
   region: us-east-1
   runtime: nodejs14.x
+  environment:
+    ALCHEMY_KEY_ETHEREUM: ${env:ALCHEMY_KEY_ETHEREUM}
+    ALCHEMY_KEY_ARBITRUM: ${env:ALCHEMY_KEY_ARBITRUM}
+    ALCHEMY_KEY_ARBITRUM_RINKEBY: ${env:ALCHEMY_KEY_ARBITRUM_RINKEBY}
 
 package:
   individually: true

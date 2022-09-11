@@ -19,6 +19,7 @@ provider:
 
 package:
   individually: true
+  excludeDevDependencies: false
 
 functions:
   # /magic

@@ -1,7 +1,7 @@
 name: Deploy functions
 on:
   push:
-    branches: [main, ci-test]
+    branches: [main]
 jobs:
   deploy:
     name: Deploy

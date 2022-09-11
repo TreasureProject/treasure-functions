@@ -32,4 +32,4 @@ serverless invoke local -f functionName
 
 ### Deploy
 
-Merge changes to `main` branch to automatically deploy to Treasure's AWS instance via GitHub Actions.
+Merge changes to `main` branch to automatically deploy to Treasure's AWS instance via GitHub Actions. Changes will be visible in ~5 minutes after cache expires.

@@ -1,6 +1,7 @@
 const {
   getMagicCirculatingSupply,
   getMagicTotalSupply,
+  getMagicPrice,
 } = require("../services/magic");
 const { createJsonResponse } = require("../utils/handler");
 
@@ -15,3 +16,5 @@ exports.getCirculatingSupply = async (event) => {
   const data = await getMagicCirculatingSupply(variant);
   return createJsonResponse(showMore ? data : data.circulatingSupply);
 };
+
+exports.getPrice = getMagicPrice;

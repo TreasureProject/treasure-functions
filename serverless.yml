@@ -36,6 +36,12 @@ functions:
       - httpApi:
           path: /circulating-supply
           method: get
+  getMagicPrice:
+    handler: src/handlers/magic.getPrice
+    events:
+      - httpApi:
+          path: /magic/price
+          method: get
   # /mines
   getMines:
     handler: src/handlers/mine.getMines

@@ -1,3 +1,4 @@
+const axios = require("axios");
 const {
   CIRCULATING_SUPPLY_EXCLUDED,
   CIRCULATING_SUPPLY_EXCLUDED_EXTENDED,
@@ -42,5 +43,28 @@ exports.getMagicCirculatingSupply = async (variant) => {
       addresses,
       balance: sumArray(excludedBalances[i]),
     })),
+  };
+};
+
+exports.getMagicPrice = async () => {
+  const { data } = await axios.post(
+    "https://api.thegraph.com/subgraphs/name/sushiswap/arbitrum-exchange",
+    {
+      query: `{
+      bundle(id: "1") {
+        ethPrice
+      }
+      pair(id: "0xb7e50106a5bd3cf21af210a755f9c8740890a8c9") {
+        token1Price
+      }
+    }`,
+    }
+  );
+  const ethUsd = parseFloat(data?.data.bundle.ethPrice ?? "0");
+  const magicEth = parseFloat(data?.data.pair.token1Price ?? "0");
+  return {
+    ethUsd,
+    magicEth,
+    magicUsd: ethUsd * magicEth,
   };
 };

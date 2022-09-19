@@ -47,24 +47,20 @@ exports.getMagicCirculatingSupply = async (variant) => {
 };
 
 exports.getMagicPrice = async () => {
-  const { data } = await axios.post(
-    "https://api.thegraph.com/subgraphs/name/sushiswap/arbitrum-exchange",
-    {
-      query: `{
-      bundle(id: "1") {
-        ethPrice
-      }
-      pair(id: "0xb7e50106a5bd3cf21af210a755f9c8740890a8c9") {
-        token1Price
-      }
-    }`,
-    }
-  );
-  const ethUsd = parseFloat(data?.data.bundle.ethPrice ?? "0");
-  const magicEth = parseFloat(data?.data.pair.token1Price ?? "0");
+  const magicKey = "arbitrum:0x539bdE0d7Dbd336b79148AA742883198BBF60342";
+  const [{ data: dataNow }, { data: data24h }] = await Promise.all([
+    axios.get(`https://coins.llama.fi/prices/current/${magicKey}`),
+    axios.get(
+      `https://coins.llama.fi/prices/historical/${
+        Math.round(Date.now() / 1000) - 86400
+      }/${magicKey}`
+    ),
+  ]);
+  const magicUsd = dataNow?.coins[magicKey]?.price ?? 0;
+  const magicUsd24h = data24h?.coins[magicKey]?.price ?? 0;
   return {
-    ethUsd,
-    magicEth,
-    magicUsd: ethUsd * magicEth,
+    magicUsd,
+    magicUsd24h,
+    change24h: magicUsd > 0 ? (magicUsd24h - magicUsd) / magicUsd : 0,
   };
 };

@@ -61,6 +61,6 @@ exports.getMagicPrice = async () => {
   return {
     magicUsd,
     magicUsd24h,
-    change24h: magicUsd > 0 ? (magicUsd24h - magicUsd) / magicUsd : 0,
+    change24h: magicUsd24h > 0 ? (magicUsd - magicUsd24h) / magicUsd24h : 0,
   };
 };

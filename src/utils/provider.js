@@ -1,14 +1,11 @@
-const { StaticJsonRpcProvider } = require("@ethersproject/providers");
-const {
-  JSON_RPC_ARBITRUM,
-  JSON_RPC_ETHEREUM,
-  JSON_RPC_ARBITRUM_RINKEBY,
-} = require("../constants");
+const { AlchemyProvider } = require("@ethersproject/providers");
 
-exports.ethereumProvider = new StaticJsonRpcProvider(JSON_RPC_ETHEREUM);
+exports.ethereumProvider = new AlchemyProvider(
+  "ethereum",
+  process.env.ALCHEMY_KEY_ARBITRUM
+);
 
-exports.arbitrumProvider = new StaticJsonRpcProvider(JSON_RPC_ARBITRUM);
-
-exports.arbitrumRinkebyProvider = new StaticJsonRpcProvider(
-  JSON_RPC_ARBITRUM_RINKEBY
+exports.arbitrumProvider = new AlchemyProvider(
+  "arbitrum",
+  process.env.ALCHEMY_KEY_ARBITRUM
 );

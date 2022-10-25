@@ -1,7 +1,7 @@
 const { AlchemyProvider } = require("@ethersproject/providers");
 
 exports.ethereumProvider = new AlchemyProvider(
-  "ethereum",
+  "homestead",
   process.env.ALCHEMY_KEY_ARBITRUM
 );
 

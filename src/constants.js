@@ -42,6 +42,15 @@ module.exports = {
       "0xf89c823188cca29fb7e17b4fb3c32a2d425a436f",
       "0x452fe9b7403f600f736c18b8fb1039d910421594",
     ],
+    "Treasury Divestment #2 (Oct 2022) - L1": [
+      "0xbac017957e28f3f969c769bc70155692a530e00b",
+      "0xaea7a5c29bcb20fd31718e5604566e899cf76258",
+      "0x009d4e2986a4a0d33b84d3e4d162e08e8d9bb19b",
+      "0xb8d795c77c02a35c6c5065d6abaed8ea73446b7e",
+      "0x642689fcb3fb8c753529d60c6da41432729e2b72",
+      "0x17be3a18f1888e944d7996f194e87be47fb0d734",
+      "0x84784a5e5ed29f4afa217d4cf0ab8a009171c94e",
+    ],
     "Team Token Allocation (Nov 2021) - L1": [
       "0x1532aeea51706b1195303a6711699eebc4c825c7",
       "0x98b40a1f51623e76842170cb7356c620a4d5abd3",

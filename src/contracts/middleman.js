@@ -16,7 +16,7 @@ exports.getHarvesterShares = async () => {
     await middleman.getHarvesterShares(BURN_ADDRESS);
   return {
     addresses: rawAddresses.map((address) => address.toLowerCase()),
-    shares: rawShares.map(parseNumber),
+    shares: rawShares.map((share) => parseNumber(share)),
     totalShare: parseNumber(rawTotalShare),
   };
 };

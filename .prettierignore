@@ -1,6 +1,8 @@
 .env
 .env.example
+.esbuild
 .github/
+.gitignore
 .husky/
 .serverless/
 node_modules/

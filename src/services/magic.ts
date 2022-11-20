@@ -1,25 +1,23 @@
-const {
+import { BigNumber } from "@ethersproject/bignumber";
+import { formatEther, formatUnits } from "@ethersproject/units";
+
+import {
   CIRCULATING_SUPPLY_EXCLUDED,
   CIRCULATING_SUPPLY_EXCLUDED_EXTENDED,
-  CONTRACT_WETH_USDC_LP,
   CONTRACT_MAGIC_WETH_LP,
   CONTRACT_SUSHISWAP_ROUTER,
-} = require("../constants");
-const {
-  getMagicTotalSupply,
-  getMagicBalanceOf,
-} = require("../contracts/magic");
-const { getPairReserves } = require("../contracts/uniswapV2Pair");
-const { getQuote } = require("../contracts/uniswapV2Router");
-const { sumArray } = require("../utils/array");
-const { BigNumber } = require("@ethersproject/bignumber");
-const { formatUnits, formatEther } = require("@ethersproject/units");
+  CONTRACT_WETH_USDC_LP,
+} from "../constants";
+import { getMagicBalanceOf, getMagicTotalSupply } from "../contracts/magic";
+import { getPairReserves } from "../contracts/uniswapV2Pair";
+import { getQuote } from "../contracts/uniswapV2Router";
+import { sumArray } from "../utils/array";
 
 const ONE_BN = BigNumber.from("1000000000000000000");
 
-exports.getMagicTotalSupply = getMagicTotalSupply;
+export { getMagicTotalSupply };
 
-exports.getMagicCirculatingSupply = async (variant) => {
+export const getMagicCirculatingSupply = async (variant) => {
   const excludedList = Object.entries(
     variant === "treasure"
       ? {
@@ -28,7 +26,7 @@ exports.getMagicCirculatingSupply = async (variant) => {
         }
       : CIRCULATING_SUPPLY_EXCLUDED
   );
-  const totalSupply = await this.getMagicTotalSupply();
+  const totalSupply = await getMagicTotalSupply();
   const excludedBalances = await Promise.all(
     excludedList.map(([name, addresses]) =>
       Promise.all(
@@ -54,9 +52,9 @@ exports.getMagicCirculatingSupply = async (variant) => {
   };
 };
 
-exports.getMagicPrice = async () => {
+export const getMagicPrice = async () => {
   const [wethUsdcReserves, magicWethReserves] = await Promise.all([
-    getPairReserves(CONTRACT_WETH_USDC_LP, 18, 6),
+    getPairReserves(CONTRACT_WETH_USDC_LP),
     getPairReserves(CONTRACT_MAGIC_WETH_LP),
   ]);
 

@@ -1,4 +1,4 @@
-exports.createJsonResponse = (body) => ({
+export const createJsonResponse = (body) => ({
   statusCode: 200,
   headers: {
     "content-type": "application/json",

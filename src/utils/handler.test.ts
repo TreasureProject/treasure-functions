@@ -1,4 +1,4 @@
-const { createJsonResponse } = require("./handler");
+import { createJsonResponse } from "./handler";
 
 describe("handler utils", () => {
   it("should create JSON response", () => {

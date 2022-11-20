@@ -1,8 +1,8 @@
-const { MINE_NAME_MAPPING } = require("../constants");
-const { getEmissionsRatePerSecond } = require("../contracts/masterOfCoin");
-const { getHarvesterShares } = require("../contracts/middleman");
+import { MINE_NAME_MAPPING } from "../constants";
+import { getEmissionsRatePerSecond } from "../contracts/masterOfCoin";
+import { getHarvesterShares } from "../contracts/middleman";
 
-exports.getMines = async () => {
+export const getMines = async () => {
   const [{ addresses, shares, totalShare }, emissionsRatePerSecond] =
     await Promise.all([getHarvesterShares(), getEmissionsRatePerSecond()]);
   return addresses

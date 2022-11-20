@@ -1,4 +1,4 @@
-const { parseNumber } = require("./number");
+import { parseNumber } from "./number";
 
 describe("number utils", () => {
   it("should parse wei", () => {

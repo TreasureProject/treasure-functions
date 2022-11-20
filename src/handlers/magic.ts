@@ -1,20 +1,20 @@
-const {
+import {
   getMagicCirculatingSupply,
-  getMagicTotalSupply,
   getMagicPrice,
-} = require("../services/magic");
-const { createJsonResponse } = require("../utils/handler");
+  getMagicTotalSupply,
+} from "../services/magic";
+import { createJsonResponse } from "../utils/handler";
 
-exports.getTotalSupply = async () => {
+export const getTotalSupply = async () => {
   const totalSupply = await getMagicTotalSupply();
   return createJsonResponse(totalSupply);
 };
 
-exports.getCirculatingSupply = async (event) => {
+export const getCirculatingSupply = async (event) => {
   const variant = event?.queryStringParameters?.variant ?? "default";
   const showMore = !!event?.queryStringParameters?.more;
   const data = await getMagicCirculatingSupply(variant);
   return createJsonResponse(showMore ? data : data.circulatingSupply);
 };
 
-exports.getPrice = getMagicPrice;
+export const getPrice = getMagicPrice;

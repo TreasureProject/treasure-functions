@@ -1,4 +1,4 @@
-const { sumArray } = require("./array");
+import { sumArray } from "./array";
 
 describe("array utils", () => {
   it("should sum numeric array", () => {

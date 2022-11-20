@@ -3,23 +3,14 @@ const { CONTRACT_MAGIC, CONTRACT_MAGIC_L1 } = require("../constants");
 const { parseNumber } = require("../utils/number");
 const { arbitrumProvider, ethereumProvider } = require("../utils/provider");
 
-const magic = new Contract(
-  CONTRACT_MAGIC,
-  [
-    "function balanceOf(address) view returns (uint256)",
-    "function totalSupply() view returns (uint256)",
-  ],
-  arbitrumProvider
-);
+const erc20Abi = [
+  "function balanceOf(address) view returns (uint256)",
+  "function totalSupply() view returns (uint256)",
+];
 
-const magicL1 = new Contract(
-  CONTRACT_MAGIC_L1,
-  [
-    "function balanceOf(address) view returns (uint256)",
-    "function totalSupply() view returns (uint256)",
-  ],
-  ethereumProvider
-);
+const magic = new Contract(CONTRACT_MAGIC, erc20Abi, arbitrumProvider);
+
+const magicL1 = new Contract(CONTRACT_MAGIC_L1, erc20Abi, ethereumProvider);
 
 exports.getMagicTotalSupply = async () =>
   parseNumber(await magicL1.totalSupply());

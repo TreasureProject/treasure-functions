@@ -1,13 +1,21 @@
-const axios = require("axios");
 const {
   CIRCULATING_SUPPLY_EXCLUDED,
   CIRCULATING_SUPPLY_EXCLUDED_EXTENDED,
+  CONTRACT_WETH_USDC_LP,
+  CONTRACT_MAGIC_WETH_LP,
+  CONTRACT_SUSHISWAP_ROUTER,
 } = require("../constants");
 const {
   getMagicTotalSupply,
   getMagicBalanceOf,
 } = require("../contracts/magic");
+const { getPairReserves } = require("../contracts/uniswapV2Pair");
+const { getQuote } = require("../contracts/uniswapV2Router");
 const { sumArray } = require("../utils/array");
+const { BigNumber } = require("@ethersproject/bignumber");
+const { formatUnits, formatEther } = require("@ethersproject/units");
+
+const ONE_BN = BigNumber.from("1000000000000000000");
 
 exports.getMagicTotalSupply = getMagicTotalSupply;
 
@@ -47,20 +55,32 @@ exports.getMagicCirculatingSupply = async (variant) => {
 };
 
 exports.getMagicPrice = async () => {
-  const magicKey = "arbitrum:0x539bdE0d7Dbd336b79148AA742883198BBF60342";
-  const [{ data: dataNow }, { data: data24h }] = await Promise.all([
-    axios.get(`https://coins.llama.fi/prices/current/${magicKey}`),
-    axios.get(
-      `https://coins.llama.fi/prices/historical/${
-        Math.round(Date.now() / 1000) - 86400
-      }/${magicKey}`
+  const [wethUsdcReserves, magicWethReserves] = await Promise.all([
+    getPairReserves(CONTRACT_WETH_USDC_LP, 18, 6),
+    getPairReserves(CONTRACT_MAGIC_WETH_LP),
+  ]);
+
+  const [wethUsdc, magicWeth] = await Promise.all([
+    getQuote(
+      CONTRACT_SUSHISWAP_ROUTER,
+      ONE_BN,
+      wethUsdcReserves.reserve0,
+      wethUsdcReserves.reserve1
+    ),
+    getQuote(
+      CONTRACT_SUSHISWAP_ROUTER,
+      ONE_BN,
+      magicWethReserves.reserve0,
+      magicWethReserves.reserve1
     ),
   ]);
-  const magicUsd = dataNow?.coins[magicKey]?.price ?? 0;
-  const magicUsd24h = data24h?.coins[magicKey]?.price ?? 0;
+
+  const ethUsd = formatUnits(wethUsdc, 6);
+  const magicEth = formatEther(magicWeth);
+
   return {
-    magicUsd,
-    magicUsd24h,
-    change24h: magicUsd24h > 0 ? (magicUsd - magicUsd24h) / magicUsd24h : 0,
+    ethUsd,
+    magicEth,
+    magicUsd: ethUsd * magicEth,
   };
 };

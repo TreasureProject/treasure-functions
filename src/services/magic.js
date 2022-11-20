@@ -75,8 +75,8 @@ exports.getMagicPrice = async () => {
     ),
   ]);
 
-  const ethUsd = formatUnits(wethUsdc, 6);
-  const magicEth = formatEther(magicWeth);
+  const ethUsd = parseFloat(formatUnits(wethUsdc, 6));
+  const magicEth = parseFloat(formatEther(magicWeth));
 
   return {
     ethUsd,

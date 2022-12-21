@@ -53,6 +53,9 @@ module.exports = {
       "0x642689fcb3fb8c753529d60c6da41432729e2b72",
       "0x17be3a18f1888e944d7996f194e87be47fb0d734",
       "0x84784a5e5ed29f4afa217d4cf0ab8a009171c94e",
+      "0x592f884ab5dab6ab377c352632258b89ff089c86",
+      "0xdd9d1c87d071a4ea63583d0a67bd64479b4bfb25",
+      "0x4375bcdec6ef198814f3c50ced6df821c802308f",
     ],
     "Team Token Allocation (Nov 2021) - L1": [
       "0x1532aeea51706b1195303a6711699eebc4c825c7",

@@ -107,6 +107,5 @@ module.exports = {
     "0x88bf661446c8f5a7072c0f75193dae0e18ae40bc": "Asiterra",
     "0x3fbfcdc02f649d5875bc9f97281b7ef5a7a9c491": "Lupus Magus",
     "0x70a75ac9537f6cdac553f82b6e39484acc521067": "Afarit",
-    "0xa0a89db1c899c49f98e6326b764bafcf167fc2ce": "Atlas Mine",
   },
 };

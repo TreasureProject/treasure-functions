@@ -80,7 +80,7 @@ module.exports = {
     "L2 Treasury Multisig": ["0x0eB5B03c0303f2F47cD81d7BE4275AF8Ed347576"],
     "L2 Marketplace Multisig": ["0xDb6Ab450178bAbCf0e467c1F3B436050d907E233"],
     "L2 Developer Multisig": ["0xE8409cd2aBae06871D166E808D75aDdb0537033A"],
-    "L2 Smol Treasury Multisig": [0x674295B530A1F69a4Bc217FFFB7E8BcDF9971678],
+    "L2 Smol Treasury Multisig": ["0x674295B530A1F69a4Bc217FFFB7E8BcDF9971678"],
     "L2 Community Grants Multisig": [
       "0x1054E9D9091dC55a1738F9c8Fc0c79E59E222804",
     ],

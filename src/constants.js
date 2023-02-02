@@ -27,6 +27,7 @@ module.exports = {
       "0x42e43a48a71ea7c022c5096007d477f88e4d1cda",
       "0x18880842ac3a6bc7b11aa0c9374c4318fad1716c",
       "0x5ba4e9083358e1662544d8d6acbedf62219a85da",
+      "0x384C329Be356e52C3285564900af5e2E13a2375d",
       "0xeaede4bfdd57026a073ac79ae43922e198f7751e",
       "0x7595639ad17a248e01eaac2b9a88ce7b4b277715",
       "0xe3fbac93506359fc56cb51d7ce62057cd51215ac",
@@ -79,6 +80,7 @@ module.exports = {
     "L2 Treasury Multisig": ["0x0eB5B03c0303f2F47cD81d7BE4275AF8Ed347576"],
     "L2 Marketplace Multisig": ["0xDb6Ab450178bAbCf0e467c1F3B436050d907E233"],
     "L2 Developer Multisig": ["0xE8409cd2aBae06871D166E808D75aDdb0537033A"],
+    "L2 Smol Treasury Multisig": [0x674295B530A1F69a4Bc217FFFB7E8BcDF9971678],
     "L2 Community Grants Multisig": [
       "0x1054E9D9091dC55a1738F9c8Fc0c79E59E222804",
     ],

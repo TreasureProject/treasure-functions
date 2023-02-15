@@ -41,10 +41,19 @@ functions:
       - httpApi:
           path: /magic/price
           method: get
-  # /mines
+  # /bridgeworld
+  getCorruption:
+    handler: src/handlers/bridgeworld.getCorruption
+    events:
+      - httpApi:
+          path: /bridgeworld/corruption
+          method: get
   getMines:
-    handler: src/handlers/mine.getMines
+    handler: src/handlers/bridgeworld.getMines
     events:
       - httpApi:
           path: /mines
+          method: get
+      - httpApi:
+          path: /bridgeworld/mines
           method: get

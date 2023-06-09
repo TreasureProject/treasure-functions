@@ -55,6 +55,7 @@ module.exports = {
       "0x84784a5e5ed29f4afa217d4cf0ab8a009171c94e",
       "0xAB6437C7Ba5aAccd681b56445B74ECB4e143D0d4",
       "0x6e8f249974110d508f21220dafe10bf932551cfc",
+      "0xa51d17dceaaef4488e5936f40d804c12aae5b0d2",
     ],
     "Contributor Token Allocation (Nov 2021) (L1)": [
       "0x1532aeea51706b1195303a6711699eebc4c825c7",

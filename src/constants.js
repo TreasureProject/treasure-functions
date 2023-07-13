@@ -131,6 +131,9 @@ module.exports = {
     "Bridgeworld | Harvester (Emerion) (L2)": [
       "0x587dc30014e10b56907237d4880a9bf8b9518150",
     ],
+    "Bridgeworld | Harvester (Thundermane) (L2)": [
+      "0x25d6a1e968bdbebf444997286de7137df1490328",
+    ],
     "Bridgeworld Game | Treasury (L1)": [
       "0xC983AA839910e7fa206dbC9478d9e3bbDFb88515",
     ],
@@ -171,5 +174,6 @@ module.exports = {
     "0x3fbfcdc02f649d5875bc9f97281b7ef5a7a9c491": "Lupus Magus",
     "0x70a75ac9537f6cdac553f82b6e39484acc521067": "Afarit",
     "0x587dc30014e10b56907237d4880a9bf8b9518150": "Emerion",
+    "0x25d6a1e968bdbebf444997286de7137df1490328": "Thundermane",
   },
 };

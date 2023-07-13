@@ -57,3 +57,5 @@ functions:
       - httpApi:
           path: /bridgeworld/mines
           method: get
+  getLegionHolders:
+    handler: src/handlers/bridgeworld.getLegionHolders

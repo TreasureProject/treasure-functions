@@ -177,4 +177,20 @@ module.exports = {
     "0x587dc30014e10b56907237d4880a9bf8b9518150": "Emerion",
     "0x25d6a1e968bdbebf444997286de7137df1490328": "Thundermane",
   },
+  BRIDGEWORLD_LEGION_CONTRACTS: [
+    "0xc8dbdc58289474ab3e01568eb5f88f440bde6b46", // Summoning
+    "0xda3cad5e4f40062ceca6c1b979766bc0baed8e33", // Questing
+    "0xb9c9ed651eb173ca7fbc3a094da9ce33ec145a29", // Crafting
+    "0xa0a89db1c899c49f98e6326b764bafcf167fc2ce", // Atlas Mine
+    "0x737eaf14061fe68f04ff4ca8205acf538555fcc8", // Advanced Questing
+    "0xa0515709fa0f520241659a91d868151e1ad263d8", // NftHandler (Kameji)
+    "0x85f1bfd98e190b482d5348fd6c987ae3da7a4df6", // NftHandler (Shinoba)
+    "0x2ef99434b0be1511ed2a1589dc987e48298e059e", // NftHandler (Asiterra)
+    "0x0c73a18364850239571afca78dd5d39193f288be", // NftHandler (Lupus Magus)
+    "0x5aa865ac69f481d43a7c67cde7d20781733eb612", // NftHandler (Afarit)
+    "0x02d1922d34724a09eb1533b6276fb7e4775a1b37", // NftHandler (Emerion)
+    "0xdc5a294470b88d9751af9bab4f8de67e8d040f48", // NftHandler (Thundermane)
+    "0x447c73f3ee46050d618fd956c1641274860b6c74", // Corruption Crypts
+    "0x26fa96b3c9d77d42a1b810589798b3d9e56d681d", // Corruption Crypts Legion Handler
+  ],
 };

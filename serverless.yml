@@ -11,6 +11,7 @@ provider:
   environment:
     ALCHEMY_KEY_ETHEREUM: ${env:ALCHEMY_KEY_ETHEREUM}
     ALCHEMY_KEY_ARBITRUM: ${env:ALCHEMY_KEY_ARBITRUM}
+    COINGECKO_API_KEY: ${env:COINGECKO_API_KEY}
 
 package:
   individually: true

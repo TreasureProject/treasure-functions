@@ -28,3 +28,4 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           ALCHEMY_KEY_ETHEREUM: ${{ secrets.ALCHEMY_KEY_ETHEREUM }}
           ALCHEMY_KEY_ARBITRUM: ${{ secrets.ALCHEMY_KEY_ARBITRUM }}
+          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}

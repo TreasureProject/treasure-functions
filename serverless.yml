@@ -41,6 +41,15 @@ functions:
       - httpApi:
           path: /magic/price
           method: get
+  getMagicExchangeInfo:
+    handler: src/handlers/magic.getMagicExchangeInfo
+    events:
+      - httpApi:
+          path: /magic/exchange-info
+          method: get
+      - httpApi:
+          path: /upbit-feed
+          method: get
   # /bridgeworld
   getCorruption:
     handler: src/handlers/bridgeworld.getCorruption

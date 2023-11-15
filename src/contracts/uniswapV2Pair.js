@@ -9,9 +9,8 @@ exports.createPairContract = (address) =>
   );
 
 exports.getPairReserves = async (address) => {
-  const [reserve0, reserve1] = await this.createPairContract(
-    address
-  ).getReserves();
+  const [reserve0, reserve1] =
+    await this.createPairContract(address).getReserves();
   return {
     reserve0,
     reserve1,

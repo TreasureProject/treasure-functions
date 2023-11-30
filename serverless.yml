@@ -42,6 +42,12 @@ functions:
       - httpApi:
           path: /magic/price
           method: get
+  getMagicWethSlpPrice:
+    handler: src/handlers/magic.getMagicWethSlpPrice
+    events:
+      - httpApi:
+          path: /magic/slp
+          method: get
   getMagicExchangeInfo:
     handler: src/handlers/magic.getMagicExchangeInfo
     events:

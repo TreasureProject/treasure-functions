@@ -13,7 +13,10 @@ const {
   getMagicTotalSupply,
   getMagicBalanceOf,
 } = require("../contracts/magic");
-const { getPairReserves } = require("../contracts/uniswapV2Pair");
+const {
+  getPairReserves,
+  getPairTotalSupply,
+} = require("../contracts/uniswapV2Pair");
 const { getQuote } = require("../contracts/uniswapV2Router");
 const { sumArray } = require("../utils/array");
 
@@ -95,6 +98,17 @@ exports.getMagicPrice = async () => {
     ethUsd,
     magicEth,
     magicUsd: ethUsd * magicEth,
+  };
+};
+
+exports.getMagicWethSlpPrice = async () => {
+  const [magicWethReserves, magicWethTotalSupply] = await Promise.all([
+    getPairReserves(CONTRACT_MAGIC_WETH_LP),
+    getPairTotalSupply(CONTRACT_MAGIC_WETH_LP),
+  ]);
+  return {
+    magic: magicWethReserves.reserve0 / magicWethTotalSupply,
+    eth: magicWethReserves.reserve1 / magicWethTotalSupply,
   };
 };
 

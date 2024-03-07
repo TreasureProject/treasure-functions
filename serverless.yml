@@ -81,3 +81,9 @@ functions:
       - httpApi:
           path: /bridgeworld/legions/verify
           method: post
+  verifyHarvesterAccess:
+    handler: src/handlers/bridgeworld.verifyHarvesterAccess
+    events:
+      - httpApi:
+          path: /bridgeworld/harvesters/{id}/verify
+          method: post

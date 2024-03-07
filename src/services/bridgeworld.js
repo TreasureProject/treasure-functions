@@ -383,3 +383,21 @@ exports.hasGenesisLegion = async (wallets) => {
   }`);
   return tokens.length > 0;
 };
+
+exports.hasHarvesterAccess = async (id, wallets) => {
+  const { stakedTokens = [] } = await querySubgraph(`{
+    stakedTokens(
+      first: 1000
+      where: {
+        user_in: ["${wallets.join('","')}"]
+        harvester: "${id}"
+        token_: {
+          category: Consumable
+        }
+      }
+    ) {
+      id
+    }
+  }`);
+  return stakedTokens.length > 0;
+};

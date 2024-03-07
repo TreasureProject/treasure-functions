@@ -13,7 +13,11 @@ exports.getLegionHolders = getLegionHolders;
 
 exports.verifyGenesisLegionHolders = async (event) => {
   const body = JSON.parse(event.body);
+  const wallets = (body.wallets || body.wallet || []).map((wallet) =>
+    wallet.toLowerCase()
+  );
+  console.log("Querying Genesis Legion holder status for wallets:", wallets);
   return {
-    success: await hasGenesisLegion(body.wallets || body.wallet || []),
+    success: await hasGenesisLegion(wallets),
   };
 };

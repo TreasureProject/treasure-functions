@@ -12,13 +12,8 @@ exports.getMines = getMines;
 exports.getLegionHolders = getLegionHolders;
 
 exports.verifyGenesisLegionHolders = async (event) => {
-  console.log(event, event?.body, event?.body?.wallet);
-  const wallets = event?.body?.wallets
-    ? event.body.wallets
-    : event?.body?.wallet
-      ? [event.body.wallet]
-      : [];
+  const body = JSON.parse(event.body);
   return {
-    success: await hasGenesisLegion(wallets),
+    success: await hasGenesisLegion(body.wallets || body.wallet || []),
   };
 };

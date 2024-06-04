@@ -7,10 +7,11 @@ provider:
   name: aws
   stage: prod
   region: us-east-1
-  runtime: nodejs14.x
+  runtime: nodejs20.x
   environment:
-    ALCHEMY_KEY_ETHEREUM: ${env:ALCHEMY_KEY_ETHEREUM}
-    ALCHEMY_KEY_ARBITRUM: ${env:ALCHEMY_KEY_ARBITRUM}
+    COINGECKO_API_KEY: ${env:COINGECKO_API_KEY}
+    GOLDSKY_PROJECT_ID: ${env:GOLDSKY_PROJECT_ID}
+    THIRDWEB_CLIENT_ID: ${env:THIRDWEB_CLIENT_ID}
 
 package:
   individually: true
@@ -41,6 +42,21 @@ functions:
       - httpApi:
           path: /magic/price
           method: get
+  getMagicWethSlpPrice:
+    handler: src/handlers/magic.getMagicWethSlpPrice
+    events:
+      - httpApi:
+          path: /magic/slp
+          method: get
+  getMagicExchangeInfo:
+    handler: src/handlers/magic.getMagicExchangeInfo
+    events:
+      - httpApi:
+          path: /magic/exchange-info
+          method: get
+      - httpApi:
+          path: /upbit-feed
+          method: get
   # /bridgeworld
   getCorruption:
     handler: src/handlers/bridgeworld.getCorruption
@@ -59,3 +75,15 @@ functions:
           method: get
   getLegionHolders:
     handler: src/handlers/bridgeworld.getLegionHolders
+  verifyGenesisLegionHolders:
+    handler: src/handlers/bridgeworld.verifyGenesisLegionHolders
+    events:
+      - httpApi:
+          path: /bridgeworld/legions/verify
+          method: post
+  verifyHarvesterAccess:
+    handler: src/handlers/bridgeworld.verifyHarvesterAccess
+    events:
+      - httpApi:
+          path: /bridgeworld/harvesters/{id}/verify
+          method: post

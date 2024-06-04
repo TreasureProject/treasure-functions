@@ -15,7 +15,7 @@ const { getHarvesterShares } = require("../contracts/middleman");
 
 const querySubgraph = async (query, subgraph = "bridgeworld") => {
   const { data } = await axios.post(
-    `https://subgraph.satsuma-prod.com/${process.env.SATSUMA_API_KEY}/treasure/${subgraph}/api`,
+    `https://api.goldsky.com/api/public/${process.env.GOLDSKY_PROJECT_ID}/subgraphs/${subgraph}/live/gn`,
     { query }
   );
   return data.data;
@@ -83,7 +83,7 @@ const getInventoryLegionUsers = async () => {
   while (true) {
     const { userTokens = [] } = await querySubgraph(`{
       userTokens(
-        first: 5000
+        first: 1000
         where: {
           user_: {
             id_not_in: [${BRIDGEWORLD_LEGION_CONTRACTS.map(
@@ -123,7 +123,7 @@ const getStakedLegionUsers = async () => {
   while (true) {
     const { stakedTokens = [] } = await querySubgraph(`{
       stakedTokens(
-        first: 5000
+        first: 1000
         where: {
           token_: {
             category: Legion
@@ -158,7 +158,7 @@ const getQuestingLegionUsers = async () => {
   while (true) {
     const { advancedQuests = [] } = await querySubgraph(`{
       advancedQuests(
-        first: 5000
+        first: 1000
         where: {
           status_not: Finished
           token_: {
@@ -191,7 +191,7 @@ const getCraftingLegionUsers = async () => {
   while (true) {
     const { crafts = [] } = await querySubgraph(`{
       crafts(
-        first: 5000
+        first: 1000
         where: {
           status_not: Finished
           random_: {
@@ -226,7 +226,7 @@ const getCryptsLegionUsers = async () => {
     const { cryptsSquads = [] } = await querySubgraph(
       `{
       cryptsSquads(
-        first: 5000
+        first: 1000
         where: {
           characters_: {
             collection: "0xfe8c1ac365ba6780aec5a985d989b327c27670a1"
@@ -276,4 +276,128 @@ exports.getLegionHolders = async () => {
     ...cryptsUsers,
   ]);
   return [...users];
+};
+
+exports.hasGenesisLegion = async (wallets) => {
+  if (wallets.length === 0) {
+    return false;
+  }
+
+  const {
+    userTokens = [],
+    crafts = [],
+    advancedQuests = [],
+    stakedTokens = [],
+  } = await querySubgraph(`{
+    userTokens(
+      first: 1000
+      where: {
+        user_in: ["${wallets.join('","')}"]
+        token_: {
+          category: Legion
+          generation: 0
+        }
+      }
+    ) {
+      id
+    }
+    crafts(
+      first: 1000
+      where: {
+        user_in: ["${wallets.join('","')}"]
+        token_: {
+          category: Legion
+          generation: 0
+        }
+        status_not: Finished
+      }
+    ) {
+      id
+    }
+    advancedQuests(
+      first: 1000
+      where: {
+        user_in: ["${wallets.join('","')}"]
+        token_: {
+          category: Legion
+          generation: 0
+        }
+        status_not: Finished
+      }
+    ) {
+      id
+    }
+    stakedTokens(
+      first: 1000
+      where: {
+        user_in: ["${wallets.join('","')}"]
+        token_: {
+          category: Legion
+          generation: 0
+        }
+      }
+    ) {
+      id
+    }
+  }`);
+  if (
+    userTokens.length > 0 ||
+    crafts.length > 0 ||
+    advancedQuests.length > 0 ||
+    stakedTokens.length > 0
+  ) {
+    return true;
+  }
+
+  const { cryptsSquads = [] } = await querySubgraph(
+    `{
+      cryptsSquads(
+        first: 1000
+        where: {
+          user_in: ["${wallets.join('","')}"]
+          characters_: {
+            collection: "0xfe8c1ac365ba6780aec5a985d989b327c27670a1"
+          }
+        }
+      ) {
+        characters {
+          tokenId
+        }
+      }
+    }`,
+    "bridgeworld-corruption"
+  );
+  const tokenIds = cryptsSquads.flatMap(({ characters }) =>
+    characters.map(({ tokenId }) => tokenId)
+  );
+  const { tokens = [] } = await querySubgraph(`{
+    tokens(
+      where: {
+        category: Legion
+        generation: 0
+        tokenId_in: [${tokenIds.join(",")}]
+      }
+    ) {
+      id
+    }
+  }`);
+  return tokens.length > 0;
+};
+
+exports.hasHarvesterAccess = async (id, wallets) => {
+  const { stakedTokens = [] } = await querySubgraph(`{
+    stakedTokens(
+      first: 1000
+      where: {
+        user_in: ["${wallets.join('","')}"]
+        harvester: "${id}"
+        token_: {
+          category: Consumable
+        }
+      }
+    ) {
+      id
+    }
+  }`);
+  return stakedTokens.length > 0;
 };

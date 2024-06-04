@@ -1,3 +1,7 @@
+const { BigNumber } = require("@ethersproject/bignumber");
+const { formatUnits, formatEther } = require("@ethersproject/units");
+const axios = require("axios");
+
 const {
   CIRCULATING_SUPPLY_EXCLUDED,
   CIRCULATING_SUPPLY_EXCLUDED_EXTENDED,
@@ -9,13 +13,25 @@ const {
   getMagicTotalSupply,
   getMagicBalanceOf,
 } = require("../contracts/magic");
-const { getPairReserves } = require("../contracts/uniswapV2Pair");
+const {
+  getPairReserves,
+  getPairTotalSupply,
+} = require("../contracts/uniswapV2Pair");
 const { getQuote } = require("../contracts/uniswapV2Router");
 const { sumArray } = require("../utils/array");
-const { BigNumber } = require("@ethersproject/bignumber");
-const { formatUnits, formatEther } = require("@ethersproject/units");
 
 const ONE_BN = BigNumber.from("1000000000000000000");
+
+const getCoinGeckoPriceInfo = async (currencies = ["USD"]) => {
+  const { data } = await axios.get(
+    `https://api.coingecko.com/api/v3/simple/price?ids=magic&vs_currencies=${currencies.join(
+      ","
+    )}&include_market_cap=true&include_24hr_vol=true&x_cg_demo_api_key=${
+      process.env.COINGECKO_API_KEY
+    }`
+  );
+  return data;
+};
 
 exports.getMagicTotalSupply = getMagicTotalSupply;
 
@@ -83,4 +99,39 @@ exports.getMagicPrice = async () => {
     magicEth,
     magicUsd: ethUsd * magicEth,
   };
+};
+
+exports.getMagicWethSlpPrice = async () => {
+  const [magicWethReserves, magicWethTotalSupply] = await Promise.all([
+    getPairReserves(CONTRACT_MAGIC_WETH_LP),
+    getPairTotalSupply(CONTRACT_MAGIC_WETH_LP),
+  ]);
+  return {
+    magic: magicWethReserves.reserve0 / magicWethTotalSupply,
+    eth: magicWethReserves.reserve1 / magicWethTotalSupply,
+  };
+};
+
+exports.getMagicExchangeInfo = async () => {
+  const currencies = ["USD", "KRW", "IDR", "SGD", "THB"];
+  const [{ magic: coinGeckoInfo }, { circulatingSupply }, maxSupply] =
+    await Promise.all([
+      getCoinGeckoPriceInfo(currencies),
+      this.getMagicCirculatingSupply(),
+      this.getMagicTotalSupply(),
+    ]);
+  const baseData = {
+    symbol: "MAGIC",
+    provider: "Treasure",
+    lastUpdatedTimestamp: Date.now(),
+  };
+  return currencies.map((currencyCode) => ({
+    ...baseData,
+    currencyCode,
+    price: coinGeckoInfo[currencyCode.toLowerCase()],
+    marketCap: coinGeckoInfo[`${currencyCode.toLowerCase()}_market_cap`],
+    accTradePrice24h: coinGeckoInfo[`${currencyCode.toLowerCase()}_24h_vol`],
+    circulatingSupply,
+    maxSupply,
+  }));
 };

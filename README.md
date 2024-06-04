@@ -6,7 +6,7 @@ Serverless functions for the Treasure ecosystem
 
 ### Pre-requisites
 
-- Node v14+
+- Node v20+
 
 ### Setup
 

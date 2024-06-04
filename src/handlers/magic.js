@@ -2,6 +2,8 @@ const {
   getMagicCirculatingSupply,
   getMagicTotalSupply,
   getMagicPrice,
+  getMagicExchangeInfo,
+  getMagicWethSlpPrice,
 } = require("../services/magic");
 const { createJsonResponse } = require("../utils/handler");
 
@@ -18,3 +20,7 @@ exports.getCirculatingSupply = async (event) => {
 };
 
 exports.getPrice = getMagicPrice;
+
+exports.getMagicExchangeInfo = getMagicExchangeInfo;
+
+exports.getMagicWethSlpPrice = getMagicWethSlpPrice;

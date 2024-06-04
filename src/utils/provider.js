@@ -1,11 +1,10 @@
-const { AlchemyProvider } = require("@ethersproject/providers");
+const { StaticJsonRpcProvider } = require("@ethersproject/providers");
 
-exports.ethereumProvider = new AlchemyProvider(
-  "homestead",
-  process.env.ALCHEMY_KEY_ARBITRUM
+exports.ethereumProvider = new StaticJsonRpcProvider(
+  `https://1.rpc.thirdweb.com/${process.env.THIRDWEB_CLIENT_ID}`,
+  "homestead"
 );
-
-exports.arbitrumProvider = new AlchemyProvider(
-  "arbitrum",
-  process.env.ALCHEMY_KEY_ARBITRUM
+exports.arbitrumProvider = new StaticJsonRpcProvider(
+  `https://42161.rpc.thirdweb.com/${process.env.THIRDWEB_CLIENT_ID}`,
+  "arbitrum"
 );

@@ -20,7 +20,9 @@ module.exports = {
     ],
     "Treasure | Ecofund (L2)": ["0x482729215aaf99b3199e41125865821ed5a4978a"],
     "Treasure | Contributor Allocation (L2)": [
-      "0x4D3aAA252850EE7C82b299CB5778925BBE92f1fC",
+      "0x4D3aAA252850EE7C82b299CB5778925BBE92f1fC", // Multisig
+      "0xfC05C3C2814DFCfD77Bf8F6796dF413D8BE3D346", // Liquifi Escrow Contract"
+      // to add Magna when available
     ],
     "Treasure | Treasury/Ecofund (L1)": [
       "0xEc834bD1F492a8Bd5aa71023550C44D4fB14632A",
@@ -63,8 +65,8 @@ module.exports = {
       "0x84784a5e5ed29f4afa217d4cf0ab8a009171c94e",
       "0xAB6437C7Ba5aAccd681b56445B74ECB4e143D0d4",
       "0x6e8f249974110d508f21220dafe10bf932551cfc",
-      "0xa51d17dceaaef4488e5936f40d804c12aae5b0d2",
       "0x0d24b4d1972d41676be6dd090b1980f958350691",
+      "0xa51d17dceaaef4488e5936f40d804c12aae5b0d2",
     ],
     "Contributor Token Allocation (Nov 2021) (L1)": [
       "0x1532aeea51706b1195303a6711699eebc4c825c7",
@@ -79,94 +81,32 @@ module.exports = {
       "0x7bc3136da3c2a9fb25278d1425885b54434c423a",
       "0x5967fe60ea096658f5b116c6375356f173c95a32",
       "0xd32c8fce63c7e940dfaeb6356eb8b5279c6f26c9",
-    ],
-    "Contributor Token Allocation (L2)": [
-      "0xfC05C3C2814DFCfD77Bf8F6796dF413D8BE3D346", // Liquifi Escrow Contract"
+      // to add new Magna exclusions
     ],
   },
   CIRCULATING_SUPPLY_EXCLUDED_EXTENDED: {
-    "Treasure | LP Reward Deployer (L2)": [
-      "0x1a9c20e2b0aC11EBECbDCA626BBA566c4ce8e606",
-    ],
+    "Treasure | LP Reward Deployer (L2)": ["0x1a9c20e2b0aC11EBECbDCA626BBA566c4ce8e606",],
     "Treasure | Treasury (L2)": ["0x0eB5B03c0303f2F47cD81d7BE4275AF8Ed347576"],
-    "Treasure | Marketplace (L2)": [
-      "0xDb6Ab450178bAbCf0e467c1F3B436050d907E233",
-    ],
+    "Treasure | Marketplace (L2)": ["0xDb6Ab450178bAbCf0e467c1F3B436050d907E233",],
     "Treasure | Developer (L2)": ["0xE8409cd2aBae06871D166E808D75aDdb0537033A"],
-    "Treasure | Smol Treasury (L2)": [
-      "0x674295B530A1F69a4Bc217FFFB7E8BcDF9971678",
-    ],
-    "Treasure | Community Grants (L2)": [
-      "0x1054E9D9091dC55a1738F9c8Fc0c79E59E222804",
-    ],
-    "Treasure | Community Gamification Fund (L2)": [
-      "0x3Fe5d6AE3470b2De09eD062Ac78444E44Aa0cACe",
-    ],
-    "Treasure | Community Ecosystem Fund (L2)": [
-      "0x45236EB7C47a68aE63f62F7e38f7C2F864f2Ad14",
-    ],
-    "Treasure | Master of Coin (L2)": [
-      "0x3563590E19d2B9216E7879D269a04ec67Ed95A87",
-    ],
-    "Bridgeworld | Treasury (L2)": [
-      "0xf9E197Aa9fa7C3b27A1A1313CaD5851B55F2FD71",
-    ],
-    "Bridgeworld | Atlas Mine (L2)": [
-      "0xA0A89db1C899c49F98E6326b764BAFcf167fC2CE",
-    ],
-    "Bridgeworld | Harvester (Kameji) (L2)": [
-      "0xdf9f9ca6ee5c3024b64dcecbadc462c0b896147a",
-    ],
-    "Bridgeworld | Harvester (Shinoba) (L2)": [
-      "0x2b1de6d22e6cb9178b3ecbcb7f20b62fcce925d4",
-    ],
-    "Bridgeworld | Harvester (Asiterra) (L2)": [
-      "0x88bf661446c8f5a7072c0f75193dae0e18ae40bc",
-    ],
-    "Bridgeworld | Harvester (Lupus Magus) (L2)": [
-      "0x3fbfcdc02f649d5875bc9f97281b7ef5a7a9c491",
-    ],
-    "Bridgeworld | Harvester (Afarit) (L2)": [
-      "0x70a75ac9537f6cdac553f82b6e39484acc521067",
-    ],
-    "Bridgeworld | Harvester (Emerion) (L2)": [
-      "0x587dc30014e10b56907237d4880a9bf8b9518150",
-    ],
-    "Bridgeworld | Harvester (Thundermane) (L2)": [
-      "0x25d6a1e968bdbebf444997286de7137df1490328",
-    ],
-    "Bridgeworld Game | Treasury (L1)": [
-      "0xC983AA839910e7fa206dbC9478d9e3bbDFb88515",
-    ],
+    "Treasure | Smol Treasury (L2)": ["0x674295B530A1F69a4Bc217FFFB7E8BcDF9971678",],
+    "Treasure | Community Grants (L2)": ["0x1054E9D9091dC55a1738F9c8Fc0c79E59E222804",],
+    "Treasure | Community Gamification Fund (L2)": ["0x3Fe5d6AE3470b2De09eD062Ac78444E44Aa0cACe",],
+    "Treasure | Community Ecosystem Fund (L2)": ["0x45236EB7C47a68aE63f62F7e38f7C2F864f2Ad14",],
+    "Treasure | Master of Coin (L2)": ["0x3563590E19d2B9216E7879D269a04ec67Ed95A87",],
+    "Bridgeworld | Treasury (L2)": ["0xf9E197Aa9fa7C3b27A1A1313CaD5851B55F2FD71",],
+    "Bridgeworld | Atlas Mine (L2)": ["0xA0A89db1C899c49F98E6326b764BAFcf167fC2CE",],
+    "Bridgeworld | Harvester (Kameji) (L2)": ["0xdf9f9ca6ee5c3024b64dcecbadc462c0b896147a",],
+    "Bridgeworld | Harvester (Shinoba) (L2)": ["0x2b1de6d22e6cb9178b3ecbcb7f20b62fcce925d4",],
+    "Bridgeworld | Harvester (Asiterra) (L2)": ["0x88bf661446c8f5a7072c0f75193dae0e18ae40bc",],
+    "Bridgeworld | Harvester (Lupus Magus) (L2)": ["0x3fbfcdc02f649d5875bc9f97281b7ef5a7a9c491",],
+    "Bridgeworld | Harvester (Afarit) (L2)": ["0x70a75ac9537f6cdac553f82b6e39484acc521067",],
+    "Bridgeworld | Harvester (Emerion) (L2)": ["0x587dc30014e10b56907237d4880a9bf8b9518150",],
+    "Bridgeworld | Harvester (Thundermane) (L2)": ["0x25d6a1e968bdbebf444997286de7137df1490328",],
+    "Bridgeworld | Harvester (Emberwing) (L2)": ["0x36882e71D11EADD9F869b0fD70d18D5045939986",],
+    "Bridgeworld Game | Treasury (L1)": ["0xC983AA839910e7fa206dbC9478d9e3bbDFb88515",],
     "Smolverse | Treasury (L2)": ["0x674295B530A1F69a4Bc217FFFB7E8BcDF9971678"],
-    "Darkbright | Treasury (L1)": [
-      "0xFc4aA8C3Ee7d40C4C38ad5565Da7AF8Fc53F1487",
-    ],
-
-    // Partner Games
-    "BattleFly | Treasury (L2)": ["0xF5411006eEfD66c213d2fd2033a1d340458B7226"],
-    // Bitmates | Treasury (L2)
-    "Knights of the Ether | Treasury (L2)": [
-      "0xF6F4fF252b28162De985f6B81199Cd33212A43a1",
-    ],
-    // Kuroro | Treasury (L2)
-    "LifeVerse | Treasury (L2)": ["0x2A41e719ad1Bb59dc4226c58b09d88a06c61fda0"],
-    "Realm | Treasury (L2)": ["0x265102a516f98e3FAB001eD6686633000a5526D5"],
-    "Tales of Elleria | Treasury (L2)": [
-      "0x69832Af74774baE99D999e7F74FE3F7d5833bF84",
-    ],
-    "The Lost Donkeys | Treasury (L2)": [
-      "0xE5d2e749cb7663aBcdeDb8A2F3e975c71306fE6d",
-      "0x6917c7BbB27b0D88eb2Ea80988299CCdC9543dE9",
-    ],
-    "SamuRise | Treasury (L2)": ["0xed051407d3E1529857B8a23f128Aa60cb90f91C2"],
-    "The Beacon | Treasury (L2)": [
-      "0xd6a6b9FC4589d690117724Df893ae8BB1A4542f1",
-    ],
-    "Toadstoolz | Treasury (L2)": [
-      "0x275dC332fD1E10cd8C4dC91d7CF00De4f2A06330",
-    ],
-    "Zeeverse | Treasury (L2)": ["0x2cF2f73a7966894F5cdA2A67a282F071831b596d"],
+    "Darkbright | Treasury (L1)": ["0xFc4aA8C3Ee7d40C4C38ad5565Da7AF8Fc53F1487",],
   },
   MINE_NAME_MAPPING: {
     "0xdf9f9ca6ee5c3024b64dcecbadc462c0b896147a": "Kameji",
@@ -176,6 +116,7 @@ module.exports = {
     "0x70a75ac9537f6cdac553f82b6e39484acc521067": "Afarit",
     "0x587dc30014e10b56907237d4880a9bf8b9518150": "Emerion",
     "0x25d6a1e968bdbebf444997286de7137df1490328": "Thundermane",
+    "0x36882e71D11EADD9F869b0fD70d18D5045939986": "Emberwing",
   },
   BRIDGEWORLD_LEGION_CONTRACTS: [
     "0xc8dbdc58289474ab3e01568eb5f88f440bde6b46", // Summoning
@@ -190,6 +131,7 @@ module.exports = {
     "0x5aa865ac69f481d43a7c67cde7d20781733eb612", // NftHandler (Afarit)
     "0x02d1922d34724a09eb1533b6276fb7e4775a1b37", // NftHandler (Emerion)
     "0xdc5a294470b88d9751af9bab4f8de67e8d040f48", // NftHandler (Thundermane)
+    "0x22CAFC3819a35cddbdAfB6417Db5E8fCd5ca49e7", // NftHandler (Emberwing)
     "0x447c73f3ee46050d618fd956c1641274860b6c74", // Corruption Crypts
     "0x26fa96b3c9d77d42a1b810589798b3d9e56d681d", // Corruption Crypts Legion Handler
   ],

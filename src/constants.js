@@ -22,7 +22,6 @@ module.exports = {
     "Treasure | Contributor Allocation (L2)": [
       "0x4D3aAA252850EE7C82b299CB5778925BBE92f1fC", // Multisig
       "0xfC05C3C2814DFCfD77Bf8F6796dF413D8BE3D346", // Liquifi Escrow Contract"
-      // to add Magna when available
     ],
     "Treasure | Treasury/Ecofund (L1)": [
       "0xEc834bD1F492a8Bd5aa71023550C44D4fB14632A",
@@ -81,7 +80,6 @@ module.exports = {
       "0x7bc3136da3c2a9fb25278d1425885b54434c423a",
       "0x5967fe60ea096658f5b116c6375356f173c95a32",
       "0xd32c8fce63c7e940dfaeb6356eb8b5279c6f26c9",
-      // to add new Magna exclusions
     ],
   },
   CIRCULATING_SUPPLY_EXCLUDED_EXTENDED: {

@@ -134,7 +134,7 @@ module.exports = {
       "0x25d6a1e968bdbebf444997286de7137df1490328",
     ],
     "Bridgeworld | Harvester (Emberwing) (L2)": [
-      "0x36882e71D11EADD9F869b0fD70d18D5045939986",
+      "0x36882e71d11eadd9f869b0fd70d18d5045939986",
     ],
     "Bridgeworld Game | Treasury (L1)": [
       "0xC983AA839910e7fa206dbC9478d9e3bbDFb88515",
@@ -152,7 +152,7 @@ module.exports = {
     "0x70a75ac9537f6cdac553f82b6e39484acc521067": "Afarit",
     "0x587dc30014e10b56907237d4880a9bf8b9518150": "Emerion",
     "0x25d6a1e968bdbebf444997286de7137df1490328": "Thundermane",
-    "0x36882e71D11EADD9F869b0fD70d18D5045939986": "Emberwing",
+    "0x36882e71d11eadd9f869b0fd70d18d5045939986": "Emberwing",
   },
   BRIDGEWORLD_LEGION_CONTRACTS: [
     "0xc8dbdc58289474ab3e01568eb5f88f440bde6b46", // Summoning
@@ -167,7 +167,7 @@ module.exports = {
     "0x5aa865ac69f481d43a7c67cde7d20781733eb612", // NftHandler (Afarit)
     "0x02d1922d34724a09eb1533b6276fb7e4775a1b37", // NftHandler (Emerion)
     "0xdc5a294470b88d9751af9bab4f8de67e8d040f48", // NftHandler (Thundermane)
-    "0x22CAFC3819a35cddbdAfB6417Db5E8fCd5ca49e7", // NftHandler (Emberwing)
+    "0x22cafc3819a35cddbdafb6417db5e8fcd5ca49e7", // NftHandler (Emberwing)
     "0x447c73f3ee46050d618fd956c1641274860b6c74", // Corruption Crypts
     "0x26fa96b3c9d77d42a1b810589798b3d9e56d681d", // Corruption Crypts Legion Handler
   ],

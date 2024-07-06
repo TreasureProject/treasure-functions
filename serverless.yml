@@ -12,6 +12,7 @@ provider:
     COINGECKO_API_KEY: ${env:COINGECKO_API_KEY}
     GOLDSKY_PROJECT_ID: ${env:GOLDSKY_PROJECT_ID}
     THIRDWEB_CLIENT_ID: ${env:THIRDWEB_CLIENT_ID}
+    TROVE_API_KEY: ${env:TROVE_API_KEY}
 
 package:
   individually: true
@@ -86,4 +87,17 @@ functions:
     events:
       - httpApi:
           path: /bridgeworld/harvesters/{id}/verify
+          method: post
+  # /beacon
+  verifyFoundingCharacterHolders:
+    handler: src/handlers/beacon.verifyFoundingCharacterHolders
+    events:
+      - httpApi:
+          path: /beacon/founding-characters/verify
+          method: post
+  verifyPetHolders:
+    handler: src/handlers/beacon.verifyPetHolders
+    events:
+      - httpApi:
+          path: /beacon/pets/verify
           method: post

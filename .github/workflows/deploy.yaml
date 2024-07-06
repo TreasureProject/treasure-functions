@@ -30,3 +30,4 @@ jobs:
           COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
           GOLDSKY_PROJECT_ID: ${{ secrets.GOLDSKY_PROJECT_ID }}
           THIRDWEB_CLIENT_ID: ${{ secrets.THIRDWEB_CLIENT_ID }}
+          TROVE_API_KEY: ${{ secrets.TROVE_API_KEY }}

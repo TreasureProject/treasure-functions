@@ -8,5 +8,4 @@ const beaconPetsStakingRules = new Contract(
   arbitrumProvider
 );
 
-exports.getBeaconPetsAmountStaked =
-  beaconPetsStakingRules.beaconPetsAmountStaked;
+module.exports = beaconPetsStakingRules;

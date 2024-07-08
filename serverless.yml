@@ -89,6 +89,12 @@ functions:
           path: /bridgeworld/harvesters/{id}/verify
           method: post
   # /beacon
+  verifyBeaconHolders:
+    handler: src/handlers/beacon.verifyBeaconHolders
+    events:
+      - httpApi:
+          path: /beacon/verify
+          method: post
   verifyFoundingCharacterHolders:
     handler: src/handlers/beacon.verifyFoundingCharacterHolders
     events:
@@ -100,4 +106,10 @@ functions:
     events:
       - httpApi:
           path: /beacon/pets/verify
+          method: post
+  verifyWritOfPassageHolders:
+    handler: src/handlers/beacon.verifyWritOfPassageHolders
+    events:
+      - httpApi:
+          path: /beacon/writ-of-passage/verify
           method: post

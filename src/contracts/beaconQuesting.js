@@ -8,4 +8,4 @@ const beaconQuesting = new Contract(
   arbitrumProvider
 );
 
-exports.getUserQuests = beaconQuesting.getUserQuests;
+module.exports = beaconQuesting;

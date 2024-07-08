@@ -26,6 +26,7 @@ module.exports = {
     "Treasure | Contributor Allocation (L2)": [
       "0x4D3aAA252850EE7C82b299CB5778925BBE92f1fC", // Multisig
       "0xfC05C3C2814DFCfD77Bf8F6796dF413D8BE3D346", // Liquifi Escrow Contract"
+      "0x3a3292102de78c48470a2ff5281a99d36629cfcd", // Magna
     ],
     "Treasure | Treasury/Ecofund (L1)": [
       "0xEc834bD1F492a8Bd5aa71023550C44D4fB14632A",

@@ -5,6 +5,7 @@ const {
   hasGenesisLegion,
   hasHarvesterAccess,
 } = require("../services/bridgeworld");
+const { parseVulcanWallets } = require("../utils/vulcan");
 
 exports.getCorruption = getCorruption;
 
@@ -13,10 +14,7 @@ exports.getMines = getMines;
 exports.getLegionHolders = getLegionHolders;
 
 exports.verifyGenesisLegionHolders = async (event) => {
-  const body = JSON.parse(event.body);
-  const wallets = (body.wallets || body.wallet || []).map((wallet) =>
-    wallet.toLowerCase()
-  );
+  const wallets = parseVulcanWallets(event);
   console.log("Querying Genesis Legion holder status for wallets:", wallets);
   return {
     success: await hasGenesisLegion(wallets),
@@ -24,10 +22,7 @@ exports.verifyGenesisLegionHolders = async (event) => {
 };
 
 exports.verifyHarvesterAccess = async (event) => {
-  const body = JSON.parse(event.body);
-  const wallets = (body.wallets || body.wallet || []).map((wallet) =>
-    wallet.toLowerCase()
-  );
+  const wallets = parseVulcanWallets(event);
   const id = event.pathParameters.id.toLowerCase();
   console.log("Querying Harvester access for wallets:", id, wallets);
   return {

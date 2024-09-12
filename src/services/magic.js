@@ -70,7 +70,7 @@ exports.getMagicCirculatingSupply = async (variant) => {
 
 exports.getMagicPrice = async () => {
   const [wethUsdcReserves, magicWethReserves] = await Promise.all([
-    getPairReserves(CONTRACT_WETH_USDC_LP, 18, 6),
+    getPairReserves(CONTRACT_WETH_USDC_LP),
     getPairReserves(CONTRACT_MAGIC_WETH_LP),
   ]);
 
@@ -105,8 +105,12 @@ exports.getMagicWethSlpPrice = async () => {
     getPairTotalSupply(CONTRACT_MAGIC_WETH_LP),
   ]);
   return {
-    magic: magicWethReserves.reserve0 / magicWethTotalSupply,
-    eth: magicWethReserves.reserve1 / magicWethTotalSupply,
+    magic:
+      parseNumber(magicWethReserves.reserve0) /
+      parseNumber(magicWethTotalSupply),
+    eth:
+      parseNumber(magicWethReserves.reserve1) /
+      parseNumber(magicWethTotalSupply),
   };
 };
 

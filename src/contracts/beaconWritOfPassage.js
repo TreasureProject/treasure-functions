@@ -1,11 +1,13 @@
-const { Contract } = require("@ethersproject/contracts");
 const { CONTRACT_BEACON_WRIT_OF_PASSAGE } = require("../constants");
-const { arbitrumProvider } = require("../utils/provider");
+const { arbitrumClient } = require("../utils/provider");
+const { parseAbi } = require("viem");
 
-const beaconWritOfPassage = new Contract(
-  CONTRACT_BEACON_WRIT_OF_PASSAGE,
-  ["function balanceOf(address) view returns (uint256)"],
-  arbitrumProvider
-);
+const abi = parseAbi(["function balanceOf(address) view returns (uint256)"]);
 
-module.exports = beaconWritOfPassage;
+exports.getWritOfPassageBalance = async (address) =>
+  arbitrumClient.readContract({
+    address: CONTRACT_BEACON_WRIT_OF_PASSAGE,
+    abi,
+    functionName: "balanceOf",
+    args: [address],
+  });

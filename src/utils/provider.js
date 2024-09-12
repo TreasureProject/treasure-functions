@@ -1,10 +1,22 @@
-const { StaticJsonRpcProvider } = require("@ethersproject/providers");
+const { createPublicClient, http, fallback } = require("viem");
+const { mainnet, arbitrum } = require("viem/chains");
 
-exports.ethereumProvider = new StaticJsonRpcProvider(
-  `https://1.rpc.thirdweb.com/${process.env.THIRDWEB_CLIENT_ID}`,
-  "homestead"
-);
-exports.arbitrumProvider = new StaticJsonRpcProvider(
-  `https://42161.rpc.thirdweb.com/${process.env.THIRDWEB_CLIENT_ID}`,
-  "arbitrum"
-);
+exports.arbitrumClient = createPublicClient({
+  chain: arbitrum,
+  transport: fallback([
+    http(
+      `https://${arbitrum.id}.rpc.thirdweb.com/${process.env.THIRDWEB_CLIENT_ID}`
+    ),
+    http(),
+  ]),
+});
+
+exports.ethereumClient = createPublicClient({
+  chain: mainnet,
+  transport: fallback([
+    http(
+      `https://${mainnet.id}.rpc.thirdweb.com/${process.env.THIRDWEB_CLIENT_ID}`
+    ),
+    http(),
+  ]),
+});

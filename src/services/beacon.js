@@ -1,8 +1,8 @@
-const { BigNumber } = require("@ethersproject/bignumber");
-
 const { CONTRACT_BEACON } = require("../constants");
-const beaconPetsStakingRules = require("../contracts/beaconPetsStakingRules");
-const beaconQuesting = require("../contracts/beaconQuesting");
+const {
+  getBeaconPetsAmountStaked,
+} = require("../contracts/beaconPetsStakingRules");
+const { getUserQuests } = require("../contracts/beaconQuesting");
 const beaconWritOfPassage = require("../contracts/beaconWritOfPassage");
 const { fetchUserInventory } = require("../utils/inventory");
 
@@ -12,7 +12,7 @@ exports.hasFoundingCharacter = async (wallets) => {
   }
 
   const results = await Promise.all([
-    ...wallets.map((wallet) => beaconQuesting.getUserQuests(wallet)),
+    ...wallets.map((wallet) => getUserQuests(wallet)),
     ...wallets.map((wallet) =>
       fetchUserInventory({
         userAddress: wallet,
@@ -25,7 +25,7 @@ exports.hasFoundingCharacter = async (wallets) => {
   const inventories = results.slice(wallets.length);
 
   return (
-    quests.some((quest) => !BigNumber.from(0).eq(quest[2])) ||
+    quests.some((quest) => quest[2] !== BigInt(0)) ||
     inventories
       .flat()
       .some(({ attributes }) =>
@@ -42,9 +42,7 @@ exports.hasPet = async (wallets) => {
   }
 
   const results = await Promise.all([
-    ...wallets.map((wallet) =>
-      beaconPetsStakingRules.beaconPetsAmountStaked(wallet)
-    ),
+    ...wallets.map((wallet) => getBeaconPetsAmountStaked(wallet)),
     ...wallets.map((wallet) =>
       fetchUserInventory({
         userAddress: wallet,

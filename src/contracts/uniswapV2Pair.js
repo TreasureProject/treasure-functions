@@ -1,26 +1,26 @@
-const { Contract } = require("@ethersproject/contracts");
-const { arbitrumProvider } = require("../utils/provider");
+const { arbitrumClient } = require("../utils/provider");
+const { parseAbi } = require("viem");
 
-exports.createPairContract = (address) =>
-  new Contract(
-    address,
-    [
-      "function getReserves() view returns (uint112,uint112,uint32)",
-      "function totalSupply() view returns (uint256)",
-    ],
-    arbitrumProvider
-  );
+const abi = parseAbi([
+  "function getReserves() view returns (uint112,uint112,uint32)",
+  "function totalSupply() view returns (uint256)",
+]);
 
 exports.getPairReserves = async (address) => {
-  const [reserve0, reserve1] =
-    await this.createPairContract(address).getReserves();
+  const [reserve0, reserve1] = await arbitrumClient.readContract({
+    address,
+    abi,
+    functionName: "getReserves",
+  });
   return {
     reserve0,
     reserve1,
   };
 };
 
-exports.getPairTotalSupply = async (address) => {
-  const totalSupply = await this.createPairContract(address).totalSupply();
-  return totalSupply;
-};
+exports.getPairTotalSupply = async (address) =>
+  arbitrumClient.readContract({
+    address,
+    abi,
+    functionName: "totalSupply",
+  });

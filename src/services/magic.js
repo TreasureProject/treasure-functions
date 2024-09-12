@@ -1,5 +1,3 @@
-const { BigNumber } = require("@ethersproject/bignumber");
-const { formatUnits, formatEther } = require("@ethersproject/units");
 const axios = require("axios");
 
 const {
@@ -19,8 +17,8 @@ const {
 } = require("../contracts/uniswapV2Pair");
 const { getQuote } = require("../contracts/uniswapV2Router");
 const { sumArray } = require("../utils/array");
-
-const ONE_BN = BigNumber.from("1000000000000000000");
+const { parseNumber } = require("../utils/number");
+const { parseEther } = require("viem");
 
 const getCoinGeckoPriceInfo = async (currencies = ["USD"]) => {
   const { data } = await axios.get(
@@ -79,20 +77,20 @@ exports.getMagicPrice = async () => {
   const [wethUsdc, magicWeth] = await Promise.all([
     getQuote(
       CONTRACT_SUSHISWAP_ROUTER,
-      ONE_BN,
+      parseEther("1"),
       wethUsdcReserves.reserve0,
       wethUsdcReserves.reserve1
     ),
     getQuote(
       CONTRACT_SUSHISWAP_ROUTER,
-      ONE_BN,
+      parseEther("1"),
       magicWethReserves.reserve0,
       magicWethReserves.reserve1
     ),
   ]);
 
-  const ethUsd = parseFloat(formatUnits(wethUsdc, 6));
-  const magicEth = parseFloat(formatEther(magicWeth));
+  const ethUsd = parseNumber(wethUsdc, 6);
+  const magicEth = parseNumber(magicWeth);
 
   return {
     ethUsd,

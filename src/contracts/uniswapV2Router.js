@@ -1,12 +1,14 @@
-const { Contract } = require("@ethersproject/contracts");
-const { arbitrumProvider } = require("../utils/provider");
+const { parseAbi } = require("viem");
+const { arbitrumClient } = require("../utils/provider");
 
-exports.createRouterContract = (address) =>
-  new Contract(
-    address,
-    ["function quote(uint256,uint256,uint256) view returns (uint256)"],
-    arbitrumProvider
-  );
+const abi = parseAbi([
+  "function quote(uint256,uint256,uint256) view returns (uint256)",
+]);
 
 exports.getQuote = async (address, amount0, reserve0, reserve1) =>
-  await this.createRouterContract(address).quote(amount0, reserve0, reserve1);
+  arbitrumClient.readContract({
+    address,
+    abi,
+    functionName: "quote",
+    args: [amount0, reserve0, reserve1],
+  });

@@ -1,11 +1,15 @@
-const { Contract } = require("@ethersproject/contracts");
 const { CONTRACT_BEACON_QUESTING } = require("../constants");
-const { arbitrumProvider } = require("../utils/provider");
+const { arbitrumClient } = require("../utils/provider");
+const { parseAbi } = require("viem");
 
-const beaconQuesting = new Contract(
-  CONTRACT_BEACON_QUESTING,
-  ["function getUserQuests(address) view returns (uint128,uint128,uint128)"],
-  arbitrumProvider
-);
+const abi = parseAbi([
+  "function getUserQuests(address) view returns (uint128,uint128,uint128)",
+]);
 
-module.exports = beaconQuesting;
+exports.getUserQuests = async (address) =>
+  arbitrumClient.readContract({
+    address: CONTRACT_BEACON_QUESTING,
+    abi,
+    functionName: "getUserQuests",
+    args: [address],
+  });

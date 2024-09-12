@@ -1,17 +1,6 @@
 const axios = require("axios");
 
-const {
-  MINE_NAME_MAPPING,
-  CONTRACT_CRAFTING,
-  CONTRACT_ADVANCED_QUESTING,
-  BRIDGEWORLD_LEGION_CONTRACTS,
-} = require("../constants");
-const {
-  getCorruptionInfo,
-  getCorruptionBalances,
-} = require("../contracts/corruption");
-const { getEmissionsRatePerSecond } = require("../contracts/masterOfCoin");
-const { getHarvesterShares } = require("../contracts/middleman");
+const { BRIDGEWORLD_LEGION_CONTRACTS } = require("../constants");
 
 const querySubgraph = async (query, subgraph = "bridgeworld") => {
   const { data } = await axios.post(
@@ -19,62 +8,6 @@ const querySubgraph = async (query, subgraph = "bridgeworld") => {
     { query }
   );
   return data.data;
-};
-
-exports.getCorruption = async () => {
-  const harvesterAddresses = Object.keys(MINE_NAME_MAPPING);
-  const [
-    [
-      forgeCorruptionBalance,
-      ivoryTowerCorruptionBalance,
-      ...harvestersCorruptionBalances
-    ],
-    forgeCorruptionInfo,
-    ivoryTowerCorruptionInfo,
-    ...harvestersCorruptionInfo
-  ] = await Promise.all([
-    getCorruptionBalances([
-      CONTRACT_CRAFTING,
-      CONTRACT_ADVANCED_QUESTING,
-      ...harvesterAddresses,
-    ]),
-    getCorruptionInfo(CONTRACT_CRAFTING),
-    getCorruptionInfo(CONTRACT_ADVANCED_QUESTING),
-    ...harvesterAddresses.map(getCorruptionInfo),
-  ]);
-  return [
-    {
-      name: "The Forge",
-      balance: forgeCorruptionBalance,
-      ...forgeCorruptionInfo,
-    },
-    {
-      name: "Ivory Tower",
-      balance: ivoryTowerCorruptionBalance,
-      ...ivoryTowerCorruptionInfo,
-    },
-    ...harvestersCorruptionInfo.map((corruption, i) => ({
-      name: MINE_NAME_MAPPING[harvesterAddresses[i]],
-      balance: harvestersCorruptionBalances[i],
-      ...corruption,
-    })),
-  ];
-};
-
-exports.getMines = async () => {
-  const [{ addresses, shares, totalShare }, emissionsRatePerSecond] =
-    await Promise.all([getHarvesterShares(), getEmissionsRatePerSecond()]);
-  return addresses
-    .map((address, i) => {
-      const emissionsShare = shares[i] / totalShare;
-      return {
-        address,
-        name: MINE_NAME_MAPPING[address],
-        emissionsShare,
-        emissionsPerSecond: emissionsRatePerSecond * emissionsShare,
-      };
-    })
-    .sort((a, b) => b.emissionsShare - a.emissionsShare);
 };
 
 const getInventoryLegionUsers = async () => {
@@ -382,22 +315,4 @@ exports.hasGenesisLegion = async (wallets) => {
     }
   }`);
   return tokens.length > 0;
-};
-
-exports.hasHarvesterAccess = async (id, wallets) => {
-  const { stakedTokens = [] } = await querySubgraph(`{
-    stakedTokens(
-      first: 1000
-      where: {
-        user_in: ["${wallets.join('","')}"]
-        harvester: "${id}"
-        token_: {
-          category: Consumable
-        }
-      }
-    ) {
-      id
-    }
-  }`);
-  return stakedTokens.length > 0;
 };

@@ -59,21 +59,6 @@ functions:
           path: /upbit-feed
           method: get
   # /bridgeworld
-  getCorruption:
-    handler: src/handlers/bridgeworld.getCorruption
-    events:
-      - httpApi:
-          path: /bridgeworld/corruption
-          method: get
-  getMines:
-    handler: src/handlers/bridgeworld.getMines
-    events:
-      - httpApi:
-          path: /mines
-          method: get
-      - httpApi:
-          path: /bridgeworld/mines
-          method: get
   getLegionHolders:
     handler: src/handlers/bridgeworld.getLegionHolders
   verifyGenesisLegionHolders:
@@ -81,12 +66,6 @@ functions:
     events:
       - httpApi:
           path: /bridgeworld/legions/verify
-          method: post
-  verifyHarvesterAccess:
-    handler: src/handlers/bridgeworld.verifyHarvesterAccess
-    events:
-      - httpApi:
-          path: /bridgeworld/harvesters/{id}/verify
           method: post
   # /beacon
   verifyBeaconHolders:

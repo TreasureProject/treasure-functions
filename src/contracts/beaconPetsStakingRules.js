@@ -1,11 +1,15 @@
-const { Contract } = require("@ethersproject/contracts");
 const { CONTRACT_BEACON_PETS_STAKING_RULES } = require("../constants");
-const { arbitrumProvider } = require("../utils/provider");
+const { arbitrumClient } = require("../utils/provider");
+const { parseAbi } = require("viem");
 
-const beaconPetsStakingRules = new Contract(
-  CONTRACT_BEACON_PETS_STAKING_RULES,
-  ["function beaconPetsAmountStaked(address) view returns (uint256)"],
-  arbitrumProvider
-);
+const abi = parseAbi([
+  "function beaconPetsAmountStaked(address) view returns (uint256)",
+]);
 
-module.exports = beaconPetsStakingRules;
+exports.getBeaconPetsAmountStaked = async (address) =>
+  arbitrumClient.readContract({
+    address: CONTRACT_BEACON_PETS_STAKING_RULES,
+    abi,
+    functionName: "beaconPetsAmountStaked",
+    args: [address],
+  });

@@ -7,9 +7,10 @@ const {
 } = require("../services/magic");
 const { createJsonResponse } = require("../utils/handler");
 
-exports.getTotalSupply = async () => {
-  const totalSupply = await getMagicTotalSupply();
-  return createJsonResponse(totalSupply);
+exports.getTotalSupply = async (event) => {
+  const showMore = !!event?.queryStringParameters?.more;
+  const data = await getMagicTotalSupply();
+  return createJsonResponse(showMore ? data : data.totalSupply);
 };
 
 exports.getCirculatingSupply = async (event) => {

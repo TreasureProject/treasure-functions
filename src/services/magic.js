@@ -44,8 +44,8 @@ exports.getMagicTotalSupply = async () => {
         addresses.map((address) =>
           getMagicBalanceOf(
             address,
-            name.includes("(L1)"),
-            name.includes("(Treasure)")
+            name.includes("(eth)"),
+            name.includes("(treasure)")
           )
         )
       )
@@ -83,7 +83,11 @@ exports.getMagicCirculatingSupply = async (variant) => {
     excludedList.map(([name, addresses]) =>
       Promise.all(
         addresses.map((address) =>
-          getMagicBalanceOf(address, name.includes("L1"))
+          getMagicBalanceOf(
+            address,
+            name.includes("(eth)"),
+            name.includes("(treasure)")
+          )
         )
       )
     )

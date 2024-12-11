@@ -13,41 +13,43 @@ module.exports = {
   CONTRACT_SUSHISWAP_ROUTER: "0x1b02da8cb0d097eb8d57a175b88c7d8b47997506",
   CONTRACT_WETH_USDC_LP: "0x905dfcd5649217c42684f23958568e533c711aa3",
   TOTAL_SUPPLY_EXCLUDED: {
-    "CollateralProvider (Treasure)": [
+    "CollateralProvider (treasure)": [
       "0x24DF29723B54DE65f5fbC66a610053e90534631d",
     ],
-    "MagicBurner (L1)": ["0x10E0554eD8caD1432256B7DAe97B9fC9995E9cd1"],
-    "Withdrawal Escrow (Arb)": ["0xCB8258DC51d1B6A78d765ce6847b78aC2f2f72b1"],
-    "Burn Addresses (Treasure)": [
+    "MagicBurner (eth)": ["0x10E0554eD8caD1432256B7DAe97B9fC9995E9cd1"],
+    "L1 Withdrawal Escrow (arb1)": [
+      "0xCB8258DC51d1B6A78d765ce6847b78aC2f2f72b1",
+    ],
+    "Burn Addresses (treasure)": [
       "0x0000000000000000000000000000000000000000",
       "0x000000000000000000000000000000000000dead",
     ],
-    "Burn Addresses (Arb)": [
+    "Burn Addresses (arb1)": [
       "0x0000000000000000000000000000000000000000",
       "0x000000000000000000000000000000000000dead",
     ],
-    "Burn Addresses (L1)": [
+    "Burn Addresses (eth)": [
       "0x0000000000000000000000000000000000000000",
       "0x000000000000000000000000000000000000dead",
     ],
   },
   CIRCULATING_SUPPLY_EXCLUDED: {
-    "Treasure | Mining Rewards (Arb)": [
+    "Treasure | Mining Rewards (arb1)": [
       "0x81fa605235e4c32d8b440eebe43d82e9e083166b",
     ],
-    "Treasure | Staking/LP (Arb)": [
+    "Treasure | Staking/LP (arb1)": [
       "0x64bfb08217b30b70f287a1b7f0670bdd49f8a13f",
     ],
-    "Treasure | Ecofund (Arb)": ["0x482729215aaf99b3199e41125865821ed5a4978a"],
-    "Treasure | Contributor Allocation (Arb)": [
+    "Treasure | Ecofund (arb1)": ["0x482729215aaf99b3199e41125865821ed5a4978a"],
+    "Treasure | Contributor Allocation (arb1)": [
       "0x4D3aAA252850EE7C82b299CB5778925BBE92f1fC", // Multisig
       "0xfC05C3C2814DFCfD77Bf8F6796dF413D8BE3D346", // Liquifi Escrow Contract"
       "0x3a3292102de78c48470a2ff5281a99d36629cfcd", // Magna
     ],
-    "Treasure | Treasury/Ecofund (L1)": [
+    "Treasure | Treasury/Ecofund (eth)": [
       "0xEc834bD1F492a8Bd5aa71023550C44D4fB14632A",
     ],
-    "Treasury Divestment #1 (Nov 2021) (L1)": [
+    "Treasury Divestment #1 (Nov 2021) (eth)": [
       "0xa71556db2af85d9d8da00f0eb68d150c53ba030e",
       "0x26788f3a43b07b079383d4972d98938b9f7e3f3d",
       "0x42e43a48a71ea7c022c5096007d477f88e4d1cda",
@@ -72,7 +74,7 @@ module.exports = {
       "0xf89c823188cca29fb7e17b4fb3c32a2d425a436f",
       "0x452fe9b7403f600f736c18b8fb1039d910421594",
     ],
-    "Treasury Divestment #2 (Oct 2022) (L1)": [
+    "Treasury Divestment #2 (Oct 2022) (eth)": [
       "0xbac017957e28f3f969c769bc70155692a530e00b",
       "0xaea7a5c29bcb20fd31718e5604566e899cf76258",
       "0x592f884ab5dab6ab377c352632258b89ff089c86",
@@ -88,7 +90,7 @@ module.exports = {
       "0x0d24b4d1972d41676be6dd090b1980f958350691",
       "0xa51d17dceaaef4488e5936f40d804c12aae5b0d2",
     ],
-    "Contributor Token Allocation (Nov 2021) (L1)": [
+    "Contributor Token Allocation (Nov 2021) (eth)": [
       "0x1532aeea51706b1195303a6711699eebc4c825c7",
       "0x98b40a1f51623e76842170cb7356c620a4d5abd3",
       "0x7dd44fdbff62fd1ff998f83adde314d4b8f0ad28",
@@ -104,68 +106,70 @@ module.exports = {
     ],
   },
   CIRCULATING_SUPPLY_EXCLUDED_EXTENDED: {
-    "Treasure | LP Reward Deployer (Arb)": [
+    "Treasure | LP Reward Deployer (arb1)": [
       "0x1a9c20e2b0aC11EBECbDCA626BBA566c4ce8e606",
     ],
-    "Treasure | Treasury (Arb)": ["0x0eB5B03c0303f2F47cD81d7BE4275AF8Ed347576"],
-    "Treasure | Marketplace (Arb)": [
+    "Treasure | Treasury (arb1)": [
+      "0x0eB5B03c0303f2F47cD81d7BE4275AF8Ed347576",
+    ],
+    "Treasure | Marketplace (arb1)": [
       "0xDb6Ab450178bAbCf0e467c1F3B436050d907E233",
     ],
-    "Treasure | Developer (Arb)": [
+    "Treasure | Developer (arb1)": [
       "0xE8409cd2aBae06871D166E808D75aDdb0537033A",
     ],
-    "Treasure | Smol Treasury (Arb)": [
+    "Treasure | Smol Treasury (arb1)": [
       "0x674295B530A1F69a4Bc217FFFB7E8BcDF9971678",
     ],
-    "Treasure | Community Grants (Arb)": [
+    "Treasure | Community Grants (arb1)": [
       "0x1054E9D9091dC55a1738F9c8Fc0c79E59E222804",
     ],
-    "Treasure | Community Gamification Fund (Arb)": [
+    "Treasure | Community Gamification Fund (arb1)": [
       "0x3Fe5d6AE3470b2De09eD062Ac78444E44Aa0cACe",
     ],
-    "Treasure | Community Ecosystem Fund (Arb)": [
+    "Treasure | Community Ecosystem Fund (arb1)": [
       "0x45236EB7C47a68aE63f62F7e38f7C2F864f2Ad14",
     ],
-    "Treasure | Master of Coin (Arb)": [
+    "Treasure | Master of Coin (arb1)": [
       "0x3563590E19d2B9216E7879D269a04ec67Ed95A87",
     ],
-    "Bridgeworld | Treasury (Arb)": [
+    "Bridgeworld | Treasury (arb1)": [
       "0xf9E197Aa9fa7C3b27A1A1313CaD5851B55F2FD71",
     ],
-    "Bridgeworld | Atlas Mine (Arb)": [
+    "Bridgeworld | Atlas Mine (arb1)": [
       "0xA0A89db1C899c49F98E6326b764BAFcf167fC2CE",
     ],
-    "Bridgeworld | Harvester (Kameji) (Arb)": [
+    "Bridgeworld | Harvester (Kameji) (arb1)": [
       "0xdf9f9ca6ee5c3024b64dcecbadc462c0b896147a",
     ],
-    "Bridgeworld | Harvester (Shinoba) (Arb)": [
+    "Bridgeworld | Harvester (Shinoba) (arb1)": [
       "0x2b1de6d22e6cb9178b3ecbcb7f20b62fcce925d4",
     ],
-    "Bridgeworld | Harvester (Asiterra) (Arb)": [
+    "Bridgeworld | Harvester (Asiterra) (arb1)": [
       "0x88bf661446c8f5a7072c0f75193dae0e18ae40bc",
     ],
-    "Bridgeworld | Harvester (Lupus Magus) (Arb)": [
+    "Bridgeworld | Harvester (Lupus Magus) (arb1)": [
       "0x3fbfcdc02f649d5875bc9f97281b7ef5a7a9c491",
     ],
-    "Bridgeworld | Harvester (Afarit) (Arb)": [
+    "Bridgeworld | Harvester (Afarit) (arb1)": [
       "0x70a75ac9537f6cdac553f82b6e39484acc521067",
     ],
-    "Bridgeworld | Harvester (Emerion) (Arb)": [
+    "Bridgeworld | Harvester (Emerion) (arb1)": [
       "0x587dc30014e10b56907237d4880a9bf8b9518150",
     ],
-    "Bridgeworld | Harvester (Thundermane) (Arb)": [
+    "Bridgeworld | Harvester (Thundermane) (arb1)": [
       "0x25d6a1e968bdbebf444997286de7137df1490328",
     ],
-    "Bridgeworld | Harvester (Emberwing) (Arb)": [
+    "Bridgeworld | Harvester (Emberwing) (arb1)": [
       "0x36882e71d11eadd9f869b0fd70d18d5045939986",
     ],
-    "Bridgeworld Game | Treasury (L1)": [
+    "Bridgeworld Game | Treasury (eth)": [
       "0xC983AA839910e7fa206dbC9478d9e3bbDFb88515",
     ],
-    "Smolverse | Treasury (Arb)": [
+    "Smolverse | Treasury (arb1)": [
       "0x674295B530A1F69a4Bc217FFFB7E8BcDF9971678",
     ],
-    "Darkbright | Treasury (L1)": [
+    "Darkbright | Treasury (eth)": [
       "0xFc4aA8C3Ee7d40C4C38ad5565Da7AF8Fc53F1487",
     ],
   },

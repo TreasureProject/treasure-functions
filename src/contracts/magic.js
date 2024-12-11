@@ -12,27 +12,20 @@ const {
 } = require("../utils/provider");
 
 exports.getMagicTotalSupply = async () => {
-  const [totalSupplyTreasure, totalSupplyArbitrum, totalSupplyEth] =
-    await Promise.all([
-      treasureClient.readContract({
-        address: CONTRACT_MAGIC_TREASURE,
-        abi: erc20Abi,
-        functionName: "totalSupply",
-      }),
-      arbitrumClient.readContract({
-        address: CONTRACT_MAGIC,
-        abi: erc20Abi,
-        functionName: "totalSupply",
-      }),
-      ethereumClient.readContract({
-        address: CONTRACT_MAGIC_L1,
-        abi: erc20Abi,
-        functionName: "totalSupply",
-      }),
-    ]);
+  const [totalSupplyTreasure, totalSupplyEth] = await Promise.all([
+    treasureClient.readContract({
+      address: CONTRACT_MAGIC_TREASURE,
+      abi: erc20Abi,
+      functionName: "totalSupply",
+    }),
+    ethereumClient.readContract({
+      address: CONTRACT_MAGIC_L1,
+      abi: erc20Abi,
+      functionName: "totalSupply",
+    }),
+  ]);
   return {
     totalSupplyTreasure: parseNumber(totalSupplyTreasure),
-    totalSupplyArbitrum: parseNumber(totalSupplyArbitrum),
     totalSupplyEth: parseNumber(totalSupplyEth),
   };
 };

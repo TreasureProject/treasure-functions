@@ -20,6 +20,8 @@ module.exports = {
     "L1 Withdrawal Escrow (arb1)": [
       "0xCB8258DC51d1B6A78d765ce6847b78aC2f2f72b1",
     ],
+    "Warp Route (arb1)": ["0x240d04a70B038369C8DF703B78B3b47332EeE116"],
+    "Warp Route (treasure)": ["0x01c94f24F8D72BB9C3f61c4ED0b9b86BfC23BADd"],
     "Burn Addresses (treasure)": [
       "0x0000000000000000000000000000000000000000",
       "0x000000000000000000000000000000000000dead",

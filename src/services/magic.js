@@ -6,6 +6,7 @@ const {
   CONTRACT_WETH_USDC_LP,
   CONTRACT_MAGIC_WETH_LP,
   CONTRACT_SUSHISWAP_ROUTER,
+  TOTAL_SUPPLY_EXCLUDED,
 } = require("../constants");
 const {
   getMagicTotalSupply,
@@ -31,7 +32,38 @@ const getCoinGeckoPriceInfo = async (currencies = ["USD"]) => {
   return data;
 };
 
-exports.getMagicTotalSupply = getMagicTotalSupply;
+exports.getMagicTotalSupply = async () => {
+  const excludedList = Object.entries(TOTAL_SUPPLY_EXCLUDED);
+  const { totalSupplyTreasure, totalSupplyEth } = await getMagicTotalSupply();
+  const totalSupply = totalSupplyTreasure + totalSupplyEth;
+  const excludedBalances = await Promise.all(
+    excludedList.map(([name, addresses]) =>
+      Promise.all(
+        addresses.map((address) =>
+          getMagicBalanceOf(
+            address,
+            name.includes("(eth)"),
+            name.includes("(treasure)")
+          )
+        )
+      )
+    )
+  );
+  const totalExcluded = excludedBalances.reduce(
+    (acc, balances) => acc + sumArray(balances),
+    0
+  );
+  return {
+    totalSupply: totalSupply - totalExcluded,
+    totalSupplyTreasure,
+    totalSupplyEth,
+    excludedBalances: excludedList.map(([name, addresses], i) => ({
+      name,
+      addresses,
+      balance: sumArray(excludedBalances[i]),
+    })),
+  };
+};
 
 exports.getMagicCirculatingSupply = async (variant) => {
   const excludedList = Object.entries(
@@ -42,12 +74,17 @@ exports.getMagicCirculatingSupply = async (variant) => {
         }
       : CIRCULATING_SUPPLY_EXCLUDED
   );
-  const totalSupply = await this.getMagicTotalSupply();
+  const totalSupplyData = await this.getMagicTotalSupply();
+  const totalSupply = totalSupplyData.totalSupply;
   const excludedBalances = await Promise.all(
     excludedList.map(([name, addresses]) =>
       Promise.all(
         addresses.map((address) =>
-          getMagicBalanceOf(address, name.includes("L1"))
+          getMagicBalanceOf(
+            address,
+            name.includes("(eth)"),
+            name.includes("(treasure)")
+          )
         )
       )
     )
@@ -116,7 +153,7 @@ exports.getMagicWethSlpPrice = async () => {
 
 exports.getMagicExchangeInfo = async () => {
   const currencies = ["USD", "KRW", "IDR", "SGD", "THB"];
-  const [{ magic: coinGeckoInfo }, { circulatingSupply }, maxSupply] =
+  const [{ magic: coinGeckoInfo }, { circulatingSupply }, totalSupplyData] =
     await Promise.all([
       getCoinGeckoPriceInfo(currencies),
       this.getMagicCirculatingSupply(),
@@ -134,6 +171,6 @@ exports.getMagicExchangeInfo = async () => {
     marketCap: coinGeckoInfo[`${currencyCode.toLowerCase()}_market_cap`],
     accTradePrice24h: coinGeckoInfo[`${currencyCode.toLowerCase()}_24h_vol`],
     circulatingSupply,
-    maxSupply,
+    maxSupply: totalSupplyData.totalSupply,
   }));
 };

@@ -35,7 +35,7 @@ const getCoinGeckoPriceInfo = async (currencies = ["USD"]) => {
 exports.getMagicTotalSupply = async () => {
   const excludedList = Object.entries(TOTAL_SUPPLY_EXCLUDED);
   const { totalSupplyTreasure, totalSupplyEth } = await getMagicTotalSupply();
-  const totalSupply = totalSupplyTreasure + totalSupplyEth;
+  const totalSupply = totalSupplyEth;
   const excludedBalances = await Promise.all(
     excludedList.map(([name, addresses]) =>
       Promise.all(

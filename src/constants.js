@@ -37,16 +37,23 @@ module.exports = {
   },
   CIRCULATING_SUPPLY_EXCLUDED: {
     "Treasure | Mining Rewards (arb1)": [
+      "0x74fe6b821abc46c208d374a384ff7bcde5fc6f69",
+    ],
+    "Treasure | Mining Rewards (treasure)": [
       "0x81fa605235e4c32d8b440eebe43d82e9e083166b",
     ],
     "Treasure | Staking/LP (arb1)": [
       "0x64bfb08217b30b70f287a1b7f0670bdd49f8a13f",
     ],
     "Treasure | Ecofund (arb1)": ["0x482729215aaf99b3199e41125865821ed5a4978a"],
+    "Treasure | Ecofund (treasure)": ["0x3418e91949e17ac887c2daeaf7f0799ea9f38f22"],
     "Treasure | Contributor Allocation (arb1)": [
       "0x4D3aAA252850EE7C82b299CB5778925BBE92f1fC", // Multisig
       "0xfC05C3C2814DFCfD77Bf8F6796dF413D8BE3D346", // Liquifi Escrow Contract"
       "0x3a3292102de78c48470a2ff5281a99d36629cfcd", // Magna
+    ],
+    "Treasure | Contributor Allocation (treasure)": [
+      "0x40143a989f7476e5eb526102671e070e292cd4c8", // Multisig
     ],
     "Treasure | Treasury/Ecofund (eth)": [
       "0xEc834bD1F492a8Bd5aa71023550C44D4fB14632A",

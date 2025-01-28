@@ -46,7 +46,9 @@ module.exports = {
       "0x64bfb08217b30b70f287a1b7f0670bdd49f8a13f",
     ],
     "Treasure | Ecofund (arb1)": ["0x482729215aaf99b3199e41125865821ed5a4978a"],
-    "Treasure | Ecofund (treasure)": ["0x3418e91949e17ac887c2daeaf7f0799ea9f38f22"],
+    "Treasure | Ecofund (treasure)": [
+      "0x3418e91949e17ac887c2daeaf7f0799ea9f38f22",
+    ],
     "Treasure | Contributor Allocation (arb1)": [
       "0x4D3aAA252850EE7C82b299CB5778925BBE92f1fC", // Multisig
       "0xfC05C3C2814DFCfD77Bf8F6796dF413D8BE3D346", // Liquifi Escrow Contract"

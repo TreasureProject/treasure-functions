@@ -1,39 +1,39 @@
 exports.fetchUserInventory = async ({
   userAddress,
+  chain,
   collectionAddresses = [],
   tokens = [],
   projection = "collectionAddr,collectionUrlSlug,queryUserQuantityOwned,metadata,image",
+  limit = undefined,
 }) => {
-  const url = new URL("https://trove-api.treasure.lol/tokens-for-user");
-  url.searchParams.append("userAddress", userAddress);
-  url.searchParams.append("projection", projection);
-  if (tokens.length > 0) {
-    url.searchParams.append(
-      "ids",
-      tokens
-        .map(({ address, tokenId }) => `arb/${address}/${tokenId}`)
-        .join(",")
-    );
-  } else if (collectionAddresses.length > 0) {
-    url.searchParams.append(
-      "slugs",
-      collectionAddresses.map((address) => `arb/${address}`).join(",")
-    );
-  }
+  const url = new URL("https://trove-api.treasure.lol/tokens-for-user-page");
+
+  const body = {
+    userAddress,
+    projection,
+    limit,
+    ids: tokens.length
+      ? tokens.map(({ address, tokenId }) => `${chain}/${address}/${tokenId}`)
+      : undefined,
+    slugs: collectionAddresses.length
+      ? collectionAddresses.map((address) => `${chain}/${address}`)
+      : undefined,
+  };
 
   const response = await fetch(url, {
-    headers: {
-      "X-API-Key": process.env.TROVE_API_KEY,
-    },
+    method: "POST",
+    headers: { "X-API-Key": process.env.TROVE_API_KEY },
+    body: JSON.stringify(body),
   });
+
   const results = await response.json();
-  if (!Array.isArray(results)) {
+  if (!results?.tokens || !Array.isArray(results.tokens)) {
     throw new Error(
-      `Error fetching user inventory: ${results?.message ?? "Unknown error"}`
+      `Error fetching user inventory: ${results?.message ?? results?.errorMessage ?? "Unknown error"}`
     );
   }
 
-  return results
+  return results.tokens
     .map(
       ({
         collectionAddr: address,

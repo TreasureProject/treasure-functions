@@ -92,3 +92,10 @@ functions:
       - httpApi:
           path: /beacon/writ-of-passage/verify
           method: post
+  # /nft-holders/{nft_address}
+  verifyNftHolders:
+    handler: src/handlers/nft-holder.verifyNftHolders
+    events:
+      - httpApi:
+          path: /verify-nft-holder/{address}
+          method: post

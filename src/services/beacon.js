@@ -16,6 +16,7 @@ exports.hasFoundingCharacter = async (wallets) => {
     ...wallets.map((wallet) =>
       fetchUserInventory({
         userAddress: wallet,
+        chain: "arb",
         collectionAddresses: [CONTRACT_BEACON],
       })
     ),
@@ -46,6 +47,7 @@ exports.hasPet = async (wallets) => {
     ...wallets.map((wallet) =>
       fetchUserInventory({
         userAddress: wallet,
+        chain: "arb",
         collectionAddresses: [CONTRACT_BEACON],
       })
     ),

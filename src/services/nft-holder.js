@@ -25,7 +25,9 @@ exports.hasNft = async (address, wallets) => {
         `https://trove-api.treasure.lol/partner/the-beacon/wop-staking/${wallet}`
       );
       const result = await response.json();
-      return !!result?.staked;
+      if (result?.staked) {
+        return true;
+      }
     }
   }
 

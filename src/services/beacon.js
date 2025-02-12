@@ -3,7 +3,7 @@ const {
   getBeaconPetsAmountStaked,
 } = require("../contracts/beaconPetsStakingRules");
 const { getUserQuests } = require("../contracts/beaconQuesting");
-const beaconWritOfPassage = require("../contracts/beaconWritOfPassage");
+const { getWritOfPassageBalance } = require("../contracts/beaconWritOfPassage");
 const { fetchUserInventory } = require("../utils/inventory");
 
 exports.hasFoundingCharacter = async (wallets) => {
@@ -74,7 +74,7 @@ exports.hasWritOfPassage = async (wallets) => {
   }
 
   const results = await Promise.all(
-    wallets.map((wallet) => beaconWritOfPassage.balanceOf(wallet))
+    wallets.map((wallet) => getWritOfPassageBalance(wallet))
   );
-  return results.some((balance) => balance.gt(BigNumber.from(0)));
+  return results.some((balance) => balance > 0n);
 };

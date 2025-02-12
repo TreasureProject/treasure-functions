@@ -57,7 +57,7 @@ exports.hasPet = async (wallets) => {
   const inventories = results.slice(wallets.length);
 
   return (
-    stakedAmounts.some((amount) => !BigNumber.from(0).eq(amount)) ||
+    stakedAmounts.some((amount) => amount > 0n) ||
     inventories
       .flat()
       .some(({ attributes }) =>

@@ -11,7 +11,9 @@ exports.verifyNftHolders = async (event) => {
   }
   const wallets = parseVulcanWallets(event);
   console.log(`Querying NFT (${address}) holder status for wallets:`, wallets);
-  return {
-    success: await hasNft(address, wallets),
-  };
+  const result = { success: await hasNft(address, wallets) };
+  console.log(
+    `NFT ${address} result ${JSON.stringify(result)} for wallets: ${JSON.stringify(wallets)}`
+  );
+  return result;
 };

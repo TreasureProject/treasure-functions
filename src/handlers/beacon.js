@@ -13,9 +13,11 @@ exports.verifyBeaconHolders = async (event) => {
     hasPet(wallets),
     hasWritOfPassage(wallets),
   ]);
-  return {
-    success: results.some((result) => result),
-  };
+  const result = { success: results.some((result) => result) };
+  console.log(
+    `Any arb Beacon result ${JSON.stringify(result)} for wallets: ${JSON.stringify(wallets)}`
+  );
+  return result;
 };
 
 exports.verifyFoundingCharacterHolders = async (event) => {
@@ -24,17 +26,21 @@ exports.verifyFoundingCharacterHolders = async (event) => {
     "Querying Beacon Founding Character holder status for wallets:",
     wallets
   );
-  return {
-    success: await hasFoundingCharacter(wallets),
-  };
+  const result = { success: await hasFoundingCharacter(wallets) };
+  console.log(
+    `Founding Characters result ${JSON.stringify(result)} for wallets: ${JSON.stringify(wallets)}`
+  );
+  return result;
 };
 
 exports.verifyPetHolders = async (event) => {
   const wallets = parseVulcanWallets(event);
   console.log("Querying Beacon Pet holder status for wallets:", wallets);
-  return {
-    success: await hasPet(wallets),
-  };
+  const result = { success: await hasPet(wallets) };
+  console.log(
+    `Pets result ${JSON.stringify(result)} for wallets: ${JSON.stringify(wallets)}`
+  );
+  return result;
 };
 
 exports.verifyWritOfPassageHolders = async (event) => {
@@ -43,7 +49,9 @@ exports.verifyWritOfPassageHolders = async (event) => {
     "Querying Beacon Writ of Passage holder status for wallets:",
     wallets
   );
-  return {
-    success: await hasWritOfPassage(wallets),
-  };
+  const result = { success: await hasWritOfPassage(wallets) };
+  console.log(
+    `Arb WoP result ${JSON.stringify(result)} for wallets: ${JSON.stringify(wallets)}`
+  );
+  return result;
 };

@@ -1,5 +1,6 @@
 const { createPublicClient, http, fallback, defineChain } = require("viem");
 const { mainnet, arbitrum } = require("viem/chains");
+const { Connection, clusterApiUrl } = require("@solana/web3.js");
 
 const TREASURE_CHAIN_DEFINITION = {
   id: 61166,
@@ -52,3 +53,8 @@ exports.ethereumClient = createPublicClient({
     http(),
   ]),
 });
+
+// Solana connection
+exports.solanaConnection = new Connection(
+  process.env.SOLANA_RPC_URL || clusterApiUrl("mainnet-beta")
+);

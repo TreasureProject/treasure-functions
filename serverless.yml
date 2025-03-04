@@ -58,6 +58,19 @@ functions:
       - httpApi:
           path: /upbit-feed
           method: get
+  # /smol
+  getSmolTotalSupply:
+    handler: src/handlers/smol.getTotalSupply
+    events:
+      - httpApi:
+          path: /smol/total-supply
+          method: get
+  getSmolCirculatingSupply:
+    handler: src/handlers/smol.getCirculatingSupply
+    events:
+      - httpApi:
+          path: /smol/circulating-supply
+          method: get
   # /bridgeworld
   getLegionHolders:
     handler: src/handlers/bridgeworld.getLegionHolders

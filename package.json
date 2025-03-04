@@ -12,6 +12,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@solana/web3.js": "^1.98.0",
     "axios": "^1.1.3",
     "viem": "^2.21.6"
   },

@@ -5,27 +5,25 @@ const {
   CONTRACT_SMOL_SOL,
 } = require("../constants");
 const { parseNumber } = require("../utils/number");
-const {
-  ethereumClient,
-  treasureClient,
-} = require("../utils/provider");
+const { ethereumClient, treasureClient } = require("../utils/provider");
 const { getTokenSupply, getTokenBalance } = require("../utils/solana");
 
 exports.getSmolTotalSupply = async () => {
-  const [totalSupplyTreasure, totalSupplyEth, totalSupplySol] = await Promise.all([
-    treasureClient.readContract({
-      address: CONTRACT_SMOL_TREASURE,
-      abi: erc20Abi,
-      functionName: "totalSupply",
-    }),
-    ethereumClient.readContract({
-      address: CONTRACT_SMOL_L1,
-      abi: erc20Abi,
-      functionName: "totalSupply",
-    }),
-    getTokenSupply(CONTRACT_SMOL_SOL),
-  ]);
-  
+  const [totalSupplyTreasure, totalSupplyEth, totalSupplySol] =
+    await Promise.all([
+      treasureClient.readContract({
+        address: CONTRACT_SMOL_TREASURE,
+        abi: erc20Abi,
+        functionName: "totalSupply",
+      }),
+      ethereumClient.readContract({
+        address: CONTRACT_SMOL_L1,
+        abi: erc20Abi,
+        functionName: "totalSupply",
+      }),
+      getTokenSupply(CONTRACT_SMOL_SOL),
+    ]);
+
   return {
     totalSupplyTreasure: parseNumber(totalSupplyTreasure),
     totalSupplyEth: parseNumber(totalSupplyEth),
@@ -42,7 +40,7 @@ exports.getSmolBalanceOf = async (address, chain = "ethereum") => {
       return 0;
     }
   }
-  
+
   return parseNumber(
     chain === "treasure"
       ? await treasureClient.readContract({

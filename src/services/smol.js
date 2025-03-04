@@ -1,10 +1,5 @@
-const {
-  TOTAL_SUPPLY_EXCLUDED,
-} = require("../constants");
-const {
-  getSmolTotalSupply,
-  getSmolBalanceOf,
-} = require("../contracts/smol");
+const { TOTAL_SUPPLY_EXCLUDED } = require("../constants");
+const { getSmolTotalSupply, getSmolBalanceOf } = require("../contracts/smol");
 const { sumArray } = require("../utils/array");
 
 // Helper function to determine chain from address name
@@ -19,9 +14,10 @@ exports.getSmolTotalSupply = async () => {
   // For now, we'll use the same excluded addresses as MAGIC
   // In a production environment, this should be updated with SMOL-specific exclusions
   const excludedList = Object.entries(TOTAL_SUPPLY_EXCLUDED);
-  const { totalSupplyTreasure, totalSupplyEth, totalSupplySol } = await getSmolTotalSupply();
+  const { totalSupplyTreasure, totalSupplyEth, totalSupplySol } =
+    await getSmolTotalSupply();
   const totalSupply = totalSupplyEth + totalSupplySol + totalSupplyTreasure;
-  
+
   const excludedBalances = await Promise.all(
     excludedList.map(([name, addresses]) =>
       Promise.all(
@@ -31,12 +27,12 @@ exports.getSmolTotalSupply = async () => {
       )
     )
   );
-  
+
   const totalExcluded = excludedBalances.reduce(
     (acc, balances) => acc + sumArray(balances),
     0
   );
-  
+
   return {
     totalSupply: totalSupply - totalExcluded,
     totalSupplyTreasure,
@@ -56,7 +52,7 @@ exports.getSmolCirculatingSupply = async () => {
   const excludedList = Object.entries(TOTAL_SUPPLY_EXCLUDED);
   const totalSupplyData = await this.getSmolTotalSupply();
   const totalSupply = totalSupplyData.totalSupply;
-  
+
   const excludedBalances = await Promise.all(
     excludedList.map(([name, addresses]) =>
       Promise.all(
@@ -66,12 +62,12 @@ exports.getSmolCirculatingSupply = async () => {
       )
     )
   );
-  
+
   const totalExcluded = excludedBalances.reduce(
     (acc, balances) => acc + sumArray(balances),
     0
   );
-  
+
   return {
     totalSupply,
     totalExcluded,

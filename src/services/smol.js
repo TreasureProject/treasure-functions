@@ -7,6 +7,14 @@ const {
 } = require("../contracts/smol");
 const { sumArray } = require("../utils/array");
 
+// Helper function to determine chain from address name
+const getChainFromName = (name) => {
+  if (name.includes("(eth)")) return "ethereum";
+  if (name.includes("(treasure)")) return "treasure";
+  if (name.includes("(sol)")) return "solana";
+  return "ethereum"; // Default to Ethereum
+};
+
 exports.getSmolTotalSupply = async () => {
   // For now, we'll use the same excluded addresses as MAGIC
   // In a production environment, this should be updated with SMOL-specific exclusions
@@ -18,12 +26,7 @@ exports.getSmolTotalSupply = async () => {
     excludedList.map(([name, addresses]) =>
       Promise.all(
         addresses.map((address) =>
-          getSmolBalanceOf(
-            address,
-            name.includes("(eth)"),
-            name.includes("(treasure)"),
-            name.includes("(sol)")
-          )
+          getSmolBalanceOf(address, getChainFromName(name))
         )
       )
     )
@@ -58,12 +61,7 @@ exports.getSmolCirculatingSupply = async () => {
     excludedList.map(([name, addresses]) =>
       Promise.all(
         addresses.map((address) =>
-          getSmolBalanceOf(
-            address,
-            name.includes("(eth)"),
-            name.includes("(treasure)"),
-            name.includes("(sol)")
-          )
+          getSmolBalanceOf(address, getChainFromName(name))
         )
       )
     )

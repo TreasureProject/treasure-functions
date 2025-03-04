@@ -1,27 +1,38 @@
-const axios = require("axios");
+import axios from "axios";
+import { parseEther } from "viem";
 
-const {
+import {
   CIRCULATING_SUPPLY_EXCLUDED,
   CIRCULATING_SUPPLY_EXCLUDED_EXTENDED,
-  CONTRACT_WETH_USDC_LP,
   CONTRACT_MAGIC_WETH_LP,
   CONTRACT_SUSHISWAP_ROUTER,
+  CONTRACT_WETH_USDC_LP,
   TOTAL_SUPPLY_EXCLUDED,
-} = require("../constants");
-const {
-  getMagicTotalSupply,
+} from "../constants";
+import {
   getMagicBalanceOf,
-} = require("../contracts/magic");
-const {
+  getMagicTotalSupply as getTotalSupply,
+} from "../contracts/magic";
+import {
   getPairReserves,
   getPairTotalSupply,
-} = require("../contracts/uniswapV2Pair");
-const { getQuote } = require("../contracts/uniswapV2Router");
-const { sumArray } = require("../utils/array");
-const { parseNumber } = require("../utils/number");
-const { parseEther } = require("viem");
+} from "../contracts/uniswapV2Pair";
+import { getQuote } from "../contracts/uniswapV2Router";
+import {
+  APIGatewayResponse,
+  CirculatingSupplyResult,
+  ExchangeInfoItem,
+  PriceResult,
+  SlpPriceResult,
+  TotalSupplyResult,
+} from "../types";
+import { sumArray } from "../utils/array";
+import { createJsonResponse } from "../utils/handler";
+import { parseNumber } from "../utils/number";
 
-const getCoinGeckoPriceInfo = async (currencies = ["USD"]) => {
+const getCoinGeckoPriceInfo = async (
+  currencies: string[] = ["USD"]
+): Promise<{ magic: Record<string, number> }> => {
   const { data } = await axios.get(
     `https://api.coingecko.com/api/v3/simple/price?ids=magic&vs_currencies=${currencies.join(
       ","
@@ -29,12 +40,12 @@ const getCoinGeckoPriceInfo = async (currencies = ["USD"]) => {
       process.env.COINGECKO_API_KEY
     }`
   );
-  return data;
+  return data as { magic: Record<string, number> };
 };
 
-exports.getMagicTotalSupply = async () => {
+export const getMagicTotalSupply = async (): Promise<TotalSupplyResult> => {
   const excludedList = Object.entries(TOTAL_SUPPLY_EXCLUDED);
-  const { totalSupplyTreasure, totalSupplyEth } = await getMagicTotalSupply();
+  const { totalSupplyTreasure, totalSupplyEth } = await getTotalSupply();
   const totalSupply = totalSupplyEth;
   const excludedBalances = await Promise.all(
     excludedList.map(([name, addresses]) =>
@@ -65,7 +76,9 @@ exports.getMagicTotalSupply = async () => {
   };
 };
 
-exports.getMagicCirculatingSupply = async (variant) => {
+export const getMagicCirculatingSupply = async (
+  variant: string
+): Promise<CirculatingSupplyResult> => {
   const excludedList = Object.entries(
     variant === "treasure"
       ? {
@@ -74,7 +87,7 @@ exports.getMagicCirculatingSupply = async (variant) => {
         }
       : CIRCULATING_SUPPLY_EXCLUDED
   );
-  const totalSupplyData = await this.getMagicTotalSupply();
+  const totalSupplyData = await getMagicTotalSupply();
   const totalSupply = totalSupplyData.totalSupply;
   const excludedBalances = await Promise.all(
     excludedList.map(([name, addresses]) =>
@@ -105,7 +118,7 @@ exports.getMagicCirculatingSupply = async (variant) => {
   };
 };
 
-exports.getMagicPrice = async () => {
+export const getMagicPrice = async (): Promise<APIGatewayResponse> => {
   const [wethUsdcReserves, magicWethReserves] = await Promise.all([
     getPairReserves(CONTRACT_WETH_USDC_LP),
     getPairReserves(CONTRACT_MAGIC_WETH_LP),
@@ -126,45 +139,51 @@ exports.getMagicPrice = async () => {
     ),
   ]);
 
-  const ethUsd = parseNumber(wethUsdc, 6);
-  const magicEth = parseNumber(magicWeth);
+  const ethUsd = parseNumber(wethUsdc as bigint, 6);
+  const magicEth = parseNumber(magicWeth as bigint);
 
-  return {
+  const result: PriceResult = {
     ethUsd,
     magicEth,
     magicUsd: ethUsd * magicEth,
   };
+
+  return createJsonResponse(result);
 };
 
-exports.getMagicWethSlpPrice = async () => {
+export const getMagicWethSlpPrice = async (): Promise<APIGatewayResponse> => {
   const [magicWethReserves, magicWethTotalSupply] = await Promise.all([
     getPairReserves(CONTRACT_MAGIC_WETH_LP),
     getPairTotalSupply(CONTRACT_MAGIC_WETH_LP),
   ]);
-  return {
+
+  const result: SlpPriceResult = {
     magic:
-      parseNumber(magicWethReserves.reserve0) /
-      parseNumber(magicWethTotalSupply),
+      parseNumber(magicWethReserves.reserve0 as bigint) /
+      parseNumber(magicWethTotalSupply as bigint),
     eth:
-      parseNumber(magicWethReserves.reserve1) /
-      parseNumber(magicWethTotalSupply),
+      parseNumber(magicWethReserves.reserve1 as bigint) /
+      parseNumber(magicWethTotalSupply as bigint),
   };
+
+  return createJsonResponse(result);
 };
 
-exports.getMagicExchangeInfo = async () => {
+export const getMagicExchangeInfo = async (): Promise<APIGatewayResponse> => {
   const currencies = ["USD", "KRW", "IDR", "SGD", "THB"];
   const [{ magic: coinGeckoInfo }, { circulatingSupply }, totalSupplyData] =
     await Promise.all([
       getCoinGeckoPriceInfo(currencies),
-      this.getMagicCirculatingSupply(),
-      this.getMagicTotalSupply(),
+      getMagicCirculatingSupply("default"),
+      getMagicTotalSupply(),
     ]);
   const baseData = {
     symbol: "MAGIC",
     provider: "Treasure",
     lastUpdatedTimestamp: Date.now(),
   };
-  return currencies.map((currencyCode) => ({
+
+  const result: ExchangeInfoItem[] = currencies.map((currencyCode) => ({
     ...baseData,
     currencyCode,
     price: coinGeckoInfo[currencyCode.toLowerCase()],
@@ -173,4 +192,6 @@ exports.getMagicExchangeInfo = async () => {
     circulatingSupply,
     maxSupply: totalSupplyData.totalSupply,
   }));
+
+  return createJsonResponse(result);
 };

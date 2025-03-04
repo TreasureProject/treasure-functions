@@ -3,6 +3,9 @@ frameworkVersion: "3"
 
 useDotenv: true
 
+plugins:
+  - serverless-plugin-typescript
+
 provider:
   name: aws
   stage: prod

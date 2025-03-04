@@ -1,7 +1,22 @@
-const { hasNft } = require("../services/nft-holder");
-const { parseVulcanWallets } = require("../utils/vulcan");
+import { hasNft } from "../services/nft-holder";
+import { parseVulcanWallets } from "../utils/vulcan";
 
-exports.verifyNftHolders = async (event) => {
+interface EventWithPathParams {
+  pathParameters?: {
+    address?: string;
+  };
+  body: string;
+  [key: string]: any;
+}
+
+interface Result {
+  success: boolean;
+  reason?: string;
+}
+
+export const verifyNftHolders = async (
+  event: EventWithPathParams
+): Promise<Result> => {
   const { address } = event.pathParameters ?? {};
   if (!address) {
     return {

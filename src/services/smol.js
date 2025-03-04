@@ -1,4 +1,8 @@
-const { TOTAL_SUPPLY_EXCLUDED } = require("../constants");
+const {
+  CIRCULATING_SUPPLY_EXCLUDED,
+  CIRCULATING_SUPPLY_EXCLUDED_EXTENDED,
+  TOTAL_SUPPLY_EXCLUDED,
+} = require("../constants");
 const { getSmolTotalSupply, getSmolBalanceOf } = require("../contracts/smol");
 const { sumArray } = require("../utils/array");
 
@@ -49,7 +53,10 @@ exports.getSmolTotalSupply = async () => {
 exports.getSmolCirculatingSupply = async () => {
   // For now, we'll use the same excluded addresses as MAGIC
   // In a production environment, this should be updated with SMOL-specific exclusions
-  const excludedList = Object.entries(TOTAL_SUPPLY_EXCLUDED);
+  const excludedList = Object.entries({
+    ...CIRCULATING_SUPPLY_EXCLUDED,
+    ...CIRCULATING_SUPPLY_EXCLUDED_EXTENDED,
+  });
   const totalSupplyData = await this.getSmolTotalSupply();
   const totalSupply = totalSupplyData.totalSupply;
 

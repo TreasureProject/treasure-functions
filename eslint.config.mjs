@@ -1,5 +1,7 @@
 import { FlatCompat } from "@eslint/eslintrc";
 import js from "@eslint/js";
+import tseslint from "@typescript-eslint/eslint-plugin";
+import tsParser from "@typescript-eslint/parser";
 import jest from "eslint-plugin-jest";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -17,11 +19,30 @@ export default [
   {
     plugins: {
       jest,
+      "@typescript-eslint": tseslint,
     },
-
     languageOptions: {
       globals: {},
       ecmaVersion: "latest",
+      sourceType: "module",
+      parser: tsParser,
+      parserOptions: {
+        project: "./tsconfig.json",
+      },
+    },
+    files: ["**/*.ts"],
+    rules: {
+      ...tseslint.configs.recommended.rules,
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { argsIgnorePattern: "^_" },
+      ],
+    },
+  },
+  {
+    files: ["**/*.js"],
+    languageOptions: {
       sourceType: "script",
     },
   },

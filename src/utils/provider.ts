@@ -1,8 +1,15 @@
-const { createPublicClient, http, fallback, defineChain } = require("viem");
-const { mainnet, arbitrum } = require("viem/chains");
-const { Connection, clusterApiUrl } = require("@solana/web3.js");
+import { Connection, clusterApiUrl } from "@solana/web3.js";
+import {
+  Chain,
+  PublicClient,
+  createPublicClient,
+  defineChain,
+  fallback,
+  http,
+} from "viem";
+import { arbitrum, mainnet } from "viem/chains";
 
-const TREASURE_CHAIN_DEFINITION = {
+const TREASURE_CHAIN_DEFINITION: Chain = {
   id: 61166,
   name: "Treasure",
   nativeCurrency: {
@@ -14,17 +21,19 @@ const TREASURE_CHAIN_DEFINITION = {
     default: {
       http: ["https://rpc.treasure.lol"],
     },
+    public: {
+      http: ["https://rpc.treasure.lol"],
+    },
   },
   blockExplorers: {
     default: {
       name: "Treasure Explorer",
       url: "https://treasurescan.io",
-      apiUrl: "https://treasurescan.io/api/v2",
     },
   },
 };
 
-exports.treasureClient = createPublicClient({
+export const treasureClient: PublicClient = createPublicClient({
   chain: defineChain(TREASURE_CHAIN_DEFINITION),
   transport: fallback([
     http(
@@ -34,7 +43,7 @@ exports.treasureClient = createPublicClient({
   ]),
 });
 
-exports.arbitrumClient = createPublicClient({
+export const arbitrumClient: PublicClient = createPublicClient({
   chain: arbitrum,
   transport: fallback([
     http(
@@ -44,7 +53,7 @@ exports.arbitrumClient = createPublicClient({
   ]),
 });
 
-exports.ethereumClient = createPublicClient({
+export const ethereumClient: PublicClient = createPublicClient({
   chain: mainnet,
   transport: fallback([
     http(
@@ -55,6 +64,6 @@ exports.ethereumClient = createPublicClient({
 });
 
 // Solana connection
-exports.solanaConnection = new Connection(
+export const solanaConnection = new Connection(
   process.env.SOLANA_RPC_URL || clusterApiUrl("mainnet-beta")
 );

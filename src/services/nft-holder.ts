@@ -1,6 +1,14 @@
-const { fetchUserInventory } = require("../utils/inventory");
+import { fetchUserInventory } from "../utils/inventory";
 
-exports.hasNft = async (address, wallets) => {
+interface StakingResponse {
+  staked?: boolean;
+  [key: string]: any;
+}
+
+export const hasNft = async (
+  address: string,
+  wallets: string[]
+): Promise<boolean> => {
   const inventories = await Promise.all(
     wallets.map((wallet) =>
       fetchUserInventory({
@@ -24,7 +32,7 @@ exports.hasNft = async (address, wallets) => {
       const response = await fetch(
         `https://trove-api.treasure.lol/partner/the-beacon/wop-staking/${wallet}`
       );
-      const result = await response.json();
+      const result = (await response.json()) as StakingResponse;
       if (result?.staked) {
         return true;
       }

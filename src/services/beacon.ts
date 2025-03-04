@@ -1,12 +1,22 @@
-const { CONTRACT_BEACON } = require("../constants");
-const {
-  getBeaconPetsAmountStaked,
-} = require("../contracts/beaconPetsStakingRules");
-const { getUserQuests } = require("../contracts/beaconQuesting");
-const { getWritOfPassageBalance } = require("../contracts/beaconWritOfPassage");
-const { fetchUserInventory } = require("../utils/inventory");
+import { CONTRACT_BEACON } from "../constants";
+import { getBeaconPetsAmountStaked } from "../contracts/beaconPetsStakingRules";
+import { getUserQuests } from "../contracts/beaconQuesting";
+import { getWritOfPassageBalance } from "../contracts/beaconWritOfPassage";
+import { fetchUserInventory } from "../utils/inventory";
 
-exports.hasFoundingCharacter = async (wallets) => {
+interface NFTAttribute {
+  type: string;
+  value: string;
+}
+
+interface NFTItem {
+  attributes: NFTAttribute[];
+  [key: string]: any;
+}
+
+export const hasFoundingCharacter = async (
+  wallets: string[]
+): Promise<boolean> => {
   if (wallets.length === 0) {
     return false;
   }
@@ -23,7 +33,7 @@ exports.hasFoundingCharacter = async (wallets) => {
   ]);
 
   const quests = results.slice(0, wallets.length);
-  const inventories = results.slice(wallets.length);
+  const inventories = results.slice(wallets.length) as NFTItem[][];
 
   return (
     quests.some((quest) => quest[2] !== BigInt(0)) ||
@@ -37,7 +47,7 @@ exports.hasFoundingCharacter = async (wallets) => {
   );
 };
 
-exports.hasPet = async (wallets) => {
+export const hasPet = async (wallets: string[]): Promise<boolean> => {
   if (wallets.length === 0) {
     return false;
   }
@@ -53,8 +63,8 @@ exports.hasPet = async (wallets) => {
     ),
   ]);
 
-  const stakedAmounts = results.slice(0, wallets.length);
-  const inventories = results.slice(wallets.length);
+  const stakedAmounts = results.slice(0, wallets.length) as bigint[];
+  const inventories = results.slice(wallets.length) as NFTItem[][];
 
   return (
     stakedAmounts.some((amount) => amount > 0n) ||
@@ -68,7 +78,7 @@ exports.hasPet = async (wallets) => {
   );
 };
 
-exports.hasWritOfPassage = async (wallets) => {
+export const hasWritOfPassage = async (wallets: string[]): Promise<boolean> => {
   if (wallets.length === 0) {
     return false;
   }

@@ -1,8 +1,53 @@
-const axios = require("axios");
+import axios from "axios";
 
-const { BRIDGEWORLD_LEGION_CONTRACTS } = require("../constants");
+import { BRIDGEWORLD_LEGION_CONTRACTS } from "../constants";
 
-const querySubgraph = async (query, subgraph = "bridgeworld") => {
+interface User {
+  id: string;
+}
+
+interface Token {
+  tokenId: string;
+}
+
+interface UserToken {
+  user: User;
+  token: Token;
+}
+
+interface Random {
+  requestId: string;
+}
+
+interface Craft {
+  user: User;
+  random: Random;
+}
+
+interface AdvancedQuest {
+  requestId: string;
+  user: User;
+}
+
+interface CryptsSquad {
+  squadId: string;
+  user: User;
+  characters?: { tokenId: string }[];
+}
+
+interface SubgraphResponse {
+  userTokens?: UserToken[];
+  stakedTokens?: UserToken[];
+  advancedQuests?: AdvancedQuest[];
+  crafts?: Craft[];
+  cryptsSquads?: CryptsSquad[];
+  tokens?: { id: string }[];
+}
+
+const querySubgraph = async (
+  query: string,
+  subgraph = "bridgeworld"
+): Promise<SubgraphResponse> => {
   const { data } = await axios.post(
     `https://api.goldsky.com/api/public/${process.env.GOLDSKY_PROJECT_ID}/subgraphs/${subgraph}/live/gn`,
     { query }
@@ -10,8 +55,8 @@ const querySubgraph = async (query, subgraph = "bridgeworld") => {
   return data.data;
 };
 
-const getInventoryLegionUsers = async () => {
-  let users = [];
+const getInventoryLegionUsers = async (): Promise<Set<string>> => {
+  let users: string[] = [];
   let offset = "0";
   while (true) {
     const { userTokens = [] } = await querySubgraph(`{
@@ -50,8 +95,8 @@ const getInventoryLegionUsers = async () => {
   return new Set(users);
 };
 
-const getStakedLegionUsers = async () => {
-  let users = [];
+const getStakedLegionUsers = async (): Promise<Set<string>> => {
+  let users: string[] = [];
   let offset = "0";
   while (true) {
     const { stakedTokens = [] } = await querySubgraph(`{
@@ -85,8 +130,8 @@ const getStakedLegionUsers = async () => {
   return new Set(users);
 };
 
-const getQuestingLegionUsers = async () => {
-  let users = [];
+const getQuestingLegionUsers = async (): Promise<Set<string>> => {
+  let users: string[] = [];
   let offset = "0";
   while (true) {
     const { advancedQuests = [] } = await querySubgraph(`{
@@ -118,8 +163,8 @@ const getQuestingLegionUsers = async () => {
   return new Set(users);
 };
 
-const getCraftingLegionUsers = async () => {
-  let users = [];
+const getCraftingLegionUsers = async (): Promise<Set<string>> => {
+  let users: string[] = [];
   let offset = "0";
   while (true) {
     const { crafts = [] } = await querySubgraph(`{
@@ -152,8 +197,8 @@ const getCraftingLegionUsers = async () => {
   return new Set(users);
 };
 
-const getCryptsLegionUsers = async () => {
-  let users = [];
+const getCryptsLegionUsers = async (): Promise<Set<string>> => {
+  let users: string[] = [];
   let offset = "0";
   while (true) {
     const { cryptsSquads = [] } = await querySubgraph(
@@ -187,7 +232,7 @@ const getCryptsLegionUsers = async () => {
   return new Set(users);
 };
 
-exports.getLegionHolders = async () => {
+export const getLegionHolders = async (): Promise<string[]> => {
   const [
     inventoryUsers,
     stakedUsers,
@@ -211,7 +256,7 @@ exports.getLegionHolders = async () => {
   return [...users];
 };
 
-exports.hasGenesisLegion = async (wallets) => {
+export const hasGenesisLegion = async (wallets: string[]): Promise<boolean> => {
   if (wallets.length === 0) {
     return false;
   }
@@ -300,8 +345,8 @@ exports.hasGenesisLegion = async (wallets) => {
     }`,
     "bridgeworld-corruption"
   );
-  const tokenIds = cryptsSquads.flatMap(({ characters }) =>
-    characters.map(({ tokenId }) => tokenId)
+  const tokenIds = cryptsSquads.flatMap(
+    ({ characters }) => characters?.map(({ tokenId }) => tokenId) || []
   );
   const { tokens = [] } = await querySubgraph(`{
     tokens(

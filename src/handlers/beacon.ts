@@ -1,11 +1,15 @@
-const {
+import {
   hasFoundingCharacter,
   hasPet,
   hasWritOfPassage,
-} = require("../services/beacon");
-const { parseVulcanWallets } = require("../utils/vulcan");
+} from "../services/beacon";
+import { parseVulcanWallets } from "../utils/vulcan";
 
-exports.verifyBeaconHolders = async (event) => {
+interface Result {
+  success: boolean;
+}
+
+export const verifyBeaconHolders = async (event: any): Promise<Result> => {
   const wallets = parseVulcanWallets(event);
   console.log("Querying Beacon holder status for wallets:", wallets);
   const results = await Promise.all([
@@ -20,7 +24,9 @@ exports.verifyBeaconHolders = async (event) => {
   return result;
 };
 
-exports.verifyFoundingCharacterHolders = async (event) => {
+export const verifyFoundingCharacterHolders = async (
+  event: any
+): Promise<Result> => {
   const wallets = parseVulcanWallets(event);
   console.log(
     "Querying Beacon Founding Character holder status for wallets:",
@@ -33,7 +39,7 @@ exports.verifyFoundingCharacterHolders = async (event) => {
   return result;
 };
 
-exports.verifyPetHolders = async (event) => {
+export const verifyPetHolders = async (event: any): Promise<Result> => {
   const wallets = parseVulcanWallets(event);
   console.log("Querying Beacon Pet holder status for wallets:", wallets);
   const result = { success: await hasPet(wallets) };
@@ -43,7 +49,9 @@ exports.verifyPetHolders = async (event) => {
   return result;
 };
 
-exports.verifyWritOfPassageHolders = async (event) => {
+export const verifyWritOfPassageHolders = async (
+  event: any
+): Promise<Result> => {
   const wallets = parseVulcanWallets(event);
   console.log(
     "Querying Beacon Writ of Passage holder status for wallets:",

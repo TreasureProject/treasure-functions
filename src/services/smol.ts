@@ -38,13 +38,14 @@ const getChainFromName = (name: string): string => {
 };
 
 export const getSmolTotalSupply = async (): Promise<TotalSupplyResult> => {
-  // For now, we'll use the same excluded addresses as MAGIC
-  // In a production environment, this should be updated with SMOL-specific exclusions
-  const excludedList = Object.entries(TOTAL_SUPPLY_EXCLUDED);
   const { totalSupplyTreasure, totalSupplyEth, totalSupplySol } =
     await getSmolContractTotalSupply();
-  const totalSupply = totalSupplyEth + totalSupplySol + totalSupplyTreasure;
 
+  // Hardcoded to 1B because the total supply is not minted yet
+  const totalSupply = 1_000_000_000;
+  // const totalSupply = totalSupplyEth + totalSupplySol + totalSupplyTreasure;
+
+  const excludedList = Object.entries(TOTAL_SUPPLY_EXCLUDED);
   const excludedBalances = await Promise.all(
     excludedList.map(([name, addresses]) =>
       Promise.all(

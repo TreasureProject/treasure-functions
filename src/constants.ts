@@ -132,6 +132,9 @@ export const CIRCULATING_SUPPLY_EXCLUDED: AddressMapping = {
     "0x5967fe60ea096658f5b116c6375356f173c95a32",
     "0xd32c8fce63c7e940dfaeb6356eb8b5279c6f26c9",
   ],
+  "Treasure | Smol Treasury (eth)": [
+    "0xe40bcd82e46c28daaf135717d4b2f6966bcb4e3e",
+  ],
 };
 
 export const CIRCULATING_SUPPLY_EXCLUDED_EXTENDED: AddressMapping = {

@@ -2,7 +2,6 @@ import { FlatCompat } from "@eslint/eslintrc";
 import js from "@eslint/js";
 import tseslint from "@typescript-eslint/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
-import jest from "eslint-plugin-jest";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -18,7 +17,6 @@ export default [
   ...compat.extends("prettier"),
   {
     plugins: {
-      jest,
       "@typescript-eslint": tseslint,
     },
     languageOptions: {
@@ -30,7 +28,7 @@ export default [
         project: "./tsconfig.json",
       },
     },
-    files: ["**/*.ts"],
+    files: ["**/*.ts", "vitest.config.ts"],
     rules: {
       ...tseslint.configs.recommended.rules,
       "@typescript-eslint/no-explicit-any": "off",
@@ -41,9 +39,9 @@ export default [
     },
   },
   {
-    files: ["**/*.js"],
+    files: ["**/*.js", "**/*.mjs"],
     languageOptions: {
-      sourceType: "script",
+      sourceType: "module",
     },
   },
 ];

@@ -10,7 +10,7 @@ provider:
   name: aws
   stage: prod
   region: us-east-1
-  runtime: nodejs20.x
+  runtime: nodejs22.x
   environment:
     COINGECKO_API_KEY: ${env:COINGECKO_API_KEY}
     GOLDSKY_PROJECT_ID: ${env:GOLDSKY_PROJECT_ID}

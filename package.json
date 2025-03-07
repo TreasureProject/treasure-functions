@@ -38,5 +38,8 @@
   "lint-staged": {
     "*": "prettier --write",
     "**/*.{js,ts}": "eslint --fix --quiet"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }

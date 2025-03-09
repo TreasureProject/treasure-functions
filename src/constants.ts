@@ -53,14 +53,17 @@ export const TOTAL_SUPPLY_EXCLUDED: AddressMapping = {
 };
 
 export const CIRCULATING_SUPPLY_EXCLUDED: AddressMapping = {
-  "Treasure | Mining Rewards (arb1)": [
-    "0x74fe6b821abc46c208d374a384ff7bcde5fc6f69",
-  ],
-  "Treasure | Mining Rewards (treasure)": [
+  "Treasure | DA Staking (arb1)": [
     "0x81fa605235e4c32d8b440eebe43d82e9e083166b",
   ],
-  "Treasure | Staking/LP (arb1)": [
+  "Treasure | DA Staking (treasure)": [
+    "0x74fe6b821abc46c208d374a384ff7bcde5fc6f69",
+  ],
+  "Treasure | Liquidity (arb1)": [
     "0x64bfb08217b30b70f287a1b7f0670bdd49f8a13f",
+  ],
+  "Treasure | Liquidity (treasure)": [
+    "0x519583a364c0f4988506be990e57d0d7fbeacecc",
   ],
   "Treasure | Ecofund (arb1)": ["0x482729215aaf99b3199e41125865821ed5a4978a"],
   "Treasure | Ecofund (treasure)": [

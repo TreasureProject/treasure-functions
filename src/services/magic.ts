@@ -45,50 +45,9 @@ const getCoinGeckoPriceInfo = async (
 
 export const getMagicTotalSupply = async (): Promise<TotalSupplyResult> => {
   const excludedList = Object.entries(TOTAL_SUPPLY_EXCLUDED);
-  const { totalSupplyTreasure, totalSupplyEth } = await getTotalSupply();
-  // const totalSupply = totalSupplyEth;
-  const excludedBalances = await Promise.all(
-    excludedList.map(([name, addresses]) =>
-      Promise.all(
-        addresses.map((address) =>
-          getMagicBalanceOf(
-            address,
-            name.includes("(eth)"),
-            name.includes("(treasure)")
-          )
-        )
-      )
-    )
-  );
-  // const totalExcluded = excludedBalances.reduce(
-  //   (acc, balances) => acc + sumArray(balances),
-  //   0
-  // );
-  return {
-    totalSupply: 347_685_919.9711497655, // TODO: revert to `totalSupply - totalExcluded`,
-    totalSupplyTreasure,
-    totalSupplyEth,
-    excludedBalances: excludedList.map(([name, addresses], i) => ({
-      name,
-      addresses,
-      balance: sumArray(excludedBalances[i]),
-    })),
-  };
-};
-
-export const getMagicCirculatingSupply = async (
-  variant: string
-): Promise<CirculatingSupplyResult> => {
-  const excludedList = Object.entries(
-    variant === "treasure"
-      ? {
-          ...CIRCULATING_SUPPLY_EXCLUDED,
-          ...CIRCULATING_SUPPLY_EXCLUDED_EXTENDED,
-        }
-      : CIRCULATING_SUPPLY_EXCLUDED
-  );
-  const totalSupplyData = await getMagicTotalSupply();
-  const totalSupply = totalSupplyData.totalSupply;
+  const { totalSupplyTreasure, totalSupplyEth, totalSupplyArb } =
+    await getTotalSupply();
+  const totalSupply = totalSupplyEth;
   const excludedBalances = await Promise.all(
     excludedList.map(([name, addresses]) =>
       Promise.all(
@@ -107,9 +66,10 @@ export const getMagicCirculatingSupply = async (
     0
   );
   return {
-    totalSupply,
-    totalExcluded,
-    circulatingSupply: totalSupply - totalExcluded,
+    totalSupply: totalSupply - totalExcluded,
+    totalSupplyTreasure,
+    totalSupplyEth,
+    totalSupplyArb,
     excludedBalances: excludedList.map(([name, addresses], i) => ({
       name,
       addresses,
@@ -117,6 +77,45 @@ export const getMagicCirculatingSupply = async (
     })),
   };
 };
+
+export const getMagicCirculatingSupply =
+  async (): Promise<CirculatingSupplyResult> => {
+    const excludedList = Object.entries({
+      ...CIRCULATING_SUPPLY_EXCLUDED,
+      ...CIRCULATING_SUPPLY_EXCLUDED_EXTENDED,
+    });
+    const totalSupplyData = await getMagicTotalSupply();
+    const totalSupply = totalSupplyData.totalSupply;
+    const excludedBalances = await Promise.all(
+      excludedList.map(([name, addresses]) =>
+        Promise.all(
+          addresses.map(async (address) => {
+            const balance = await getMagicBalanceOf(
+              address,
+              name.includes("(eth)"),
+              name.includes("(treasure)")
+            );
+            // console.log(`${name}, ${address}, ${balance}`);
+            return balance;
+          })
+        )
+      )
+    );
+    const totalExcluded = excludedBalances.reduce(
+      (acc, balances) => acc + sumArray(balances),
+      0
+    );
+    return {
+      totalSupply,
+      totalExcluded,
+      circulatingSupply: totalSupply - totalExcluded,
+      excludedBalances: excludedList.map(([name, addresses], i) => ({
+        name,
+        addresses,
+        balance: sumArray(excludedBalances[i]),
+      })),
+    };
+  };
 
 export const getMagicPrice = async (): Promise<APIGatewayResponse> => {
   const [wethUsdcReserves, magicWethReserves] = await Promise.all([
@@ -174,7 +173,7 @@ export const getMagicExchangeInfo = async (): Promise<APIGatewayResponse> => {
   const [{ magic: coinGeckoInfo }, { circulatingSupply }, totalSupplyData] =
     await Promise.all([
       getCoinGeckoPriceInfo(currencies),
-      getMagicCirculatingSupply("default"),
+      getMagicCirculatingSupply(),
       getMagicTotalSupply(),
     ]);
   const baseData = {

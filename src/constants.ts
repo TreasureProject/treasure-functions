@@ -59,9 +59,7 @@ export const CIRCULATING_SUPPLY_EXCLUDED: AddressMapping = {
   "Treasure | DA Staking (treasure)": [
     "0x74fe6b821abc46c208d374a384ff7bcde5fc6f69",
   ],
-  "Treasure | Liquidity (arb1)": [
-    "0x64bfb08217b30b70f287a1b7f0670bdd49f8a13f",
-  ],
+  "Treasure | Liquidity (arb1)": ["0x64bfb08217b30b70f287a1b7f0670bdd49f8a13f"],
   "Treasure | Liquidity (treasure)": [
     "0x519583a364c0f4988506be990e57d0d7fbeacecc",
   ],
@@ -69,6 +67,18 @@ export const CIRCULATING_SUPPLY_EXCLUDED: AddressMapping = {
   "Treasure | Ecofund (treasure)": [
     "0x3418e91949e17ac887c2daeaf7f0799ea9f38f22",
   ],
+  "Treasure | Ecofund (eth)": ["0x8BEB7513F0962869eDb62a19522B21b668a3F63A"],
+  "Treasure | Magna Partner vesting (eth)": [
+    "0xE98CdAA6cDB1c6953b087c08f7f55C69DbCca2E2",
+  ],
+  "Treasure | Magna Contributor vesting (eth)": [
+    "0xD3c0f3583275a6295183896E4424e644039A4Ce6",
+  ],
+  "Treasure | Contributor Allocation (eth)": [
+    "0xe044c20429E448175ba00aBa5f255678c6F00e8d",
+  ],
+  "Treasure | Operations (eth)": ["0x4ef220fc6d1c8951aab7b804b5b5eed21d7a5150"],
+
   "Treasure | Contributor Allocation (arb1)": [
     "0x4D3aAA252850EE7C82b299CB5778925BBE92f1fC", // Multisig
     "0xfC05C3C2814DFCfD77Bf8F6796dF413D8BE3D346", // Liquifi Escrow Contract"
@@ -77,9 +87,7 @@ export const CIRCULATING_SUPPLY_EXCLUDED: AddressMapping = {
   "Treasure | Contributor Allocation (treasure)": [
     "0x40143a989f7476e5eb526102671e070e292cd4c8", // Multisig
   ],
-  "Treasure | Treasury/Ecofund (eth)": [
-    "0xEc834bD1F492a8Bd5aa71023550C44D4fB14632A",
-  ],
+  "Treasure | Treasury (eth)": ["0xEc834bD1F492a8Bd5aa71023550C44D4fB14632A"],
   "Treasury Divestment #1 (Nov 2021) (eth)": [
     "0xa71556db2af85d9d8da00f0eb68d150c53ba030e",
     "0x26788f3a43b07b079383d4972d98938b9f7e3f3d",
@@ -141,7 +149,7 @@ export const CIRCULATING_SUPPLY_EXCLUDED: AddressMapping = {
 };
 
 export const CIRCULATING_SUPPLY_EXCLUDED_EXTENDED: AddressMapping = {
-  "Treasure | LP Reward Deployer (arb1)": [
+  "Treasure | Liquidity Incentives Sushi ETH-MAGIC (arb1)": [
     "0x1a9c20e2b0aC11EBECbDCA626BBA566c4ce8e606",
   ],
   "Treasure | Treasury (arb1)": ["0x0eB5B03c0303f2F47cD81d7BE4275AF8Ed347576"],
@@ -194,11 +202,11 @@ export const CIRCULATING_SUPPLY_EXCLUDED_EXTENDED: AddressMapping = {
   "Bridgeworld | Harvester (Emberwing) (arb1)": [
     "0x36882e71d11eadd9f869b0fd70d18d5045939986",
   ],
-  "Bridgeworld Game | Treasury (eth)": [
-    "0xC983AA839910e7fa206dbC9478d9e3bbDFb88515",
+  "Summoning (arb1)": ["0xc8dbdc58289474ab3e01568eb5f88f440bde6b46"],
+  "Crafting (arb1)": ["0xb9c9ed651eb173ca7fbc3a094da9ce33ec145a29"],
+  "NftHandler (Thundermane) (arb1)": [
+    "0xdc5a294470b88d9751af9bab4f8de67e8d040f48",
   ],
-  "Smolverse | Treasury (arb1)": ["0x674295B530A1F69a4Bc217FFFB7E8BcDF9971678"],
-  "Darkbright | Treasury (eth)": ["0xFc4aA8C3Ee7d40C4C38ad5565Da7AF8Fc53F1487"],
 };
 
 export const MINE_NAME_MAPPING: MineNameMapping = {

@@ -17,6 +17,7 @@ export interface TotalSupplyResult {
   totalSupply: number;
   totalSupplyTreasure?: number;
   totalSupplyEth?: number;
+  totalSupplyArb?: number;
   excludedBalances?: {
     name: string;
     addresses: string[];

@@ -15,24 +15,32 @@ import {
 interface TotalSupplyResult {
   totalSupplyTreasure: number;
   totalSupplyEth: number;
+  totalSupplyArb: number;
 }
 
 export const getMagicTotalSupply = async (): Promise<TotalSupplyResult> => {
-  const [totalSupplyTreasure, totalSupplyEth] = await Promise.all([
-    treasureClient.readContract({
-      address: CONTRACT_MAGIC_TREASURE as `0x${string}`,
-      abi: erc20Abi,
-      functionName: "totalSupply",
-    }),
-    ethereumClient.readContract({
-      address: CONTRACT_MAGIC_L1 as `0x${string}`,
-      abi: erc20Abi,
-      functionName: "totalSupply",
-    }),
-  ]);
+  const [totalSupplyTreasure, totalSupplyEth, totalSupplyArb] =
+    await Promise.all([
+      treasureClient.readContract({
+        address: CONTRACT_MAGIC_TREASURE as `0x${string}`,
+        abi: erc20Abi,
+        functionName: "totalSupply",
+      }),
+      ethereumClient.readContract({
+        address: CONTRACT_MAGIC_L1 as `0x${string}`,
+        abi: erc20Abi,
+        functionName: "totalSupply",
+      }),
+      arbitrumClient.readContract({
+        address: CONTRACT_MAGIC as `0x${string}`,
+        abi: erc20Abi,
+        functionName: "totalSupply",
+      }),
+    ]);
   return {
     totalSupplyTreasure: parseNumber(totalSupplyTreasure as bigint),
     totalSupplyEth: parseNumber(totalSupplyEth as bigint),
+    totalSupplyArb: parseNumber(totalSupplyArb as bigint),
   };
 };
 

@@ -19,9 +19,8 @@ export const getTotalSupply = async (
 export const getCirculatingSupply = async (
   event: APIGatewayEvent
 ): Promise<APIGatewayResponse> => {
-  const variant = event?.queryStringParameters?.variant ?? "default";
   const showMore = !!event?.queryStringParameters?.more;
-  const data = await getMagicCirculatingSupply(variant);
+  const data = await getMagicCirculatingSupply();
   return createJsonResponse(showMore ? data : data.circulatingSupply);
 };
 

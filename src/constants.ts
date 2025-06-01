@@ -146,6 +146,9 @@ export const CIRCULATING_SUPPLY_EXCLUDED: AddressMapping = {
   "Treasure | Smol Treasury (eth)": [
     "0xe40bcd82e46c28daaf135717d4b2f6966bcb4e3e",
   ],
+  "Treasure | Exchange escrow (treasure)": [
+    "0x2cd4697a4d7fffdd00946d1cb46318174d25da61",
+  ],
 };
 
 export const CIRCULATING_SUPPLY_EXCLUDED_EXTENDED: AddressMapping = {

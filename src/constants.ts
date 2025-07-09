@@ -149,6 +149,9 @@ export const CIRCULATING_SUPPLY_EXCLUDED: AddressMapping = {
   "Treasure | Exchange escrow (treasure)": [
     "0x2cd4697a4d7fffdd00946d1cb46318174d25da61",
   ],
+  "Treasure | Revenue (eth)": ["0x142417ca4604750675250f4aad4e8e429df48b44"],
+  "Treasure | Revenue (arb)": ["0x142417ca4604750675250f4aad4e8e429df48b44"],
+  "Flowdesk Custody (eth)": ["0xB9AF9c653E75D4C8e43C723694572982612d4DD6"],
 };
 
 export const CIRCULATING_SUPPLY_EXCLUDED_EXTENDED: AddressMapping = {

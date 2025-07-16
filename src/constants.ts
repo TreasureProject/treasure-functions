@@ -31,17 +31,11 @@ export const CONTRACT_SMOL_TREASURE =
   "0xb73e4f558f7d4436d77a18f56e4ee9d01764c641";
 
 export const TOTAL_SUPPLY_EXCLUDED: AddressMapping = {
-  "CollateralProvider (treasure)": [
-    "0x24DF29723B54DE65f5fbC66a610053e90534631d",
-  ],
-  "MagicBurner (eth)": ["0x10E0554eD8caD1432256B7DAe97B9fC9995E9cd1"],
+  "MagicBurner legacy (eth)": ["0x10E0554eD8caD1432256B7DAe97B9fC9995E9cd1"],
+  "MagicBurner (eth)": ["0x1d166c799bbd99b7039f91bc17a6322274590b78"],
+  // "MagicBridgeArb (arb1)": [""], // Include in future if L1 Hyperlane WarpRoute exists.
   "L1 Withdrawal Escrow (arb1)": ["0xCB8258DC51d1B6A78d765ce6847b78aC2f2f72b1"],
   "Warp Route (arb1)": ["0x240d04a70B038369C8DF703B78B3b47332EeE116"],
-  "Warp Route (treasure)": ["0x01c94f24F8D72BB9C3f61c4ED0b9b86BfC23BADd"],
-  "Burn Addresses (treasure)": [
-    "0x0000000000000000000000000000000000000000",
-    "0x000000000000000000000000000000000000dead",
-  ],
   "Burn Addresses (arb1)": [
     "0x0000000000000000000000000000000000000000",
     "0x000000000000000000000000000000000000dead",
@@ -50,23 +44,22 @@ export const TOTAL_SUPPLY_EXCLUDED: AddressMapping = {
     "0x0000000000000000000000000000000000000000",
     "0x000000000000000000000000000000000000dead",
   ],
+  // "CollateralProvider (treasure)": [
+  //   "0x24DF29723B54DE65f5fbC66a610053e90534631d",
+  // ],
+  // "Warp Route (treasure)": ["0x01c94f24F8D72BB9C3f61c4ED0b9b86BfC23BADd"],
+  // "Burn Addresses (treasure)": [
+  //   "0x0000000000000000000000000000000000000000",
+  //   "0x000000000000000000000000000000000000dead",
+  // ],
 };
 
 export const CIRCULATING_SUPPLY_EXCLUDED: AddressMapping = {
   "Treasure | DA Staking (arb1)": [
     "0x81fa605235e4c32d8b440eebe43d82e9e083166b",
   ],
-  "Treasure | DA Staking (treasure)": [
-    "0x74fe6b821abc46c208d374a384ff7bcde5fc6f69",
-  ],
   "Treasure | Liquidity (arb1)": ["0x64bfb08217b30b70f287a1b7f0670bdd49f8a13f"],
-  "Treasure | Liquidity (treasure)": [
-    "0x519583a364c0f4988506be990e57d0d7fbeacecc",
-  ],
   "Treasure | Ecofund (arb1)": ["0x482729215aaf99b3199e41125865821ed5a4978a"],
-  "Treasure | Ecofund (treasure)": [
-    "0x3418e91949e17ac887c2daeaf7f0799ea9f38f22",
-  ],
   "Treasure | Ecofund (eth)": ["0x8BEB7513F0962869eDb62a19522B21b668a3F63A"],
   "Treasure | Magna Partner vesting (eth)": [
     "0xE98CdAA6cDB1c6953b087c08f7f55C69DbCca2E2",
@@ -83,9 +76,6 @@ export const CIRCULATING_SUPPLY_EXCLUDED: AddressMapping = {
     "0x4D3aAA252850EE7C82b299CB5778925BBE92f1fC", // Multisig
     "0xfC05C3C2814DFCfD77Bf8F6796dF413D8BE3D346", // Liquifi Escrow Contract"
     "0x3a3292102de78c48470a2ff5281a99d36629cfcd", // Magna
-  ],
-  "Treasure | Contributor Allocation (treasure)": [
-    "0x40143a989f7476e5eb526102671e070e292cd4c8", // Multisig
   ],
   "Treasure | Treasury (eth)": ["0xEc834bD1F492a8Bd5aa71023550C44D4fB14632A"],
   "Treasury Divestment #1 (Nov 2021) (eth)": [
@@ -146,12 +136,25 @@ export const CIRCULATING_SUPPLY_EXCLUDED: AddressMapping = {
   "Treasure | Smol Treasury (eth)": [
     "0xe40bcd82e46c28daaf135717d4b2f6966bcb4e3e",
   ],
-  "Treasure | Exchange escrow (treasure)": [
-    "0x2cd4697a4d7fffdd00946d1cb46318174d25da61",
-  ],
   "Treasure | Revenue (eth)": ["0x142417ca4604750675250f4aad4e8e429df48b44"],
-  "Treasure | Revenue (arb)": ["0x142417ca4604750675250f4aad4e8e429df48b44"],
+  "Treasure | Revenue (arb1)": ["0x142417ca4604750675250f4aad4e8e429df48b44"],
   "Flowdesk Custody (eth)": ["0xB9AF9c653E75D4C8e43C723694572982612d4DD6"],
+
+  // "Treasure | DA Staking (treasure)": [
+  //   "0x74fe6b821abc46c208d374a384ff7bcde5fc6f69",
+  // ],
+  // "Treasure | Liquidity (treasure)": [
+  //   "0x519583a364c0f4988506be990e57d0d7fbeacecc",
+  // ],
+  // "Treasure | Ecofund (treasure)": [
+  //   "0x3418e91949e17ac887c2daeaf7f0799ea9f38f22",
+  // ],
+  // "Treasure | Contributor Allocation (treasure)": [
+  //   "0x40143a989f7476e5eb526102671e070e292cd4c8", // Multisig
+  // ],
+  // "Treasure | Exchange escrow (treasure)": [
+  //   "0x2cd4697a4d7fffdd00946d1cb46318174d25da61",
+  // ],
 };
 
 export const CIRCULATING_SUPPLY_EXCLUDED_EXTENDED: AddressMapping = {

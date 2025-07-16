@@ -52,11 +52,7 @@ export const getMagicTotalSupply = async (): Promise<TotalSupplyResult> => {
     excludedList.map(([name, addresses]) =>
       Promise.all(
         addresses.map((address) =>
-          getMagicBalanceOf(
-            address,
-            name.includes("(eth)"),
-            name.includes("(treasure)")
-          )
+          getMagicBalanceOf(address, name.includes("(eth)"))
         )
       )
     )
@@ -92,8 +88,7 @@ export const getMagicCirculatingSupply =
           addresses.map(async (address) => {
             const balance = await getMagicBalanceOf(
               address,
-              name.includes("(eth)"),
-              name.includes("(treasure)")
+              name.includes("(eth)")
             );
             // console.log(`${name}, ${address}, ${balance}`);
             return balance;
@@ -101,10 +96,14 @@ export const getMagicCirculatingSupply =
         )
       )
     );
-    const totalExcluded = excludedBalances.reduce(
-      (acc, balances) => acc + sumArray(balances),
-      0
-    );
+
+    // Locked in ZK Bridge (0xbeD1EB542f9a5aA6419Ff3deb921A372681111f6) after
+    // Treausre chain shutdown.
+    const treasureChainLocked = 1109010.866766269372561859;
+
+    const totalExcluded =
+      excludedBalances.reduce((acc, balances) => acc + sumArray(balances), 0) +
+      treasureChainLocked;
     return {
       totalSupply,
       totalExcluded,

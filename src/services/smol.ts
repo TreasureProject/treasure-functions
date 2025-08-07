@@ -42,7 +42,7 @@ export const getSmolTotalSupply = async (): Promise<TotalSupplyResult> => {
     await getSmolContractTotalSupply();
 
   // Hardcoded to 1B because the total supply is not minted yet
-  const totalSupply = 1_000_000_000;
+  const totalSupply = 1_210_995_204.282397572845138055;
   // const totalSupply = totalSupplyEth + totalSupplySol + totalSupplyTreasure;
 
   const excludedList = Object.entries(TOTAL_SUPPLY_EXCLUDED);

@@ -16,7 +16,7 @@ interface ExcludedBalance {
 
 interface TotalSupplyResult {
   totalSupply: number;
-  totalSupplyTreasure: number;
+  totalSupplyAbstract: number;
   totalSupplyEth: number;
   totalSupplySol: number;
   excludedBalances: ExcludedBalance[];
@@ -31,6 +31,7 @@ interface CirculatingSupplyResult {
 
 // Helper function to determine chain from address name
 const getChainFromName = (name: string): string => {
+  if (name.includes("(abstract)")) return "abstract";
   if (name.includes("(eth)")) return "ethereum";
   if (name.includes("(treasure)")) return "treasure";
   if (name.includes("(sol)")) return "solana";
@@ -38,12 +39,12 @@ const getChainFromName = (name: string): string => {
 };
 
 export const getSmolTotalSupply = async (): Promise<TotalSupplyResult> => {
-  const { totalSupplyTreasure, totalSupplyEth, totalSupplySol } =
+  const { totalSupplyAbstract, totalSupplyEth, totalSupplySol } =
     await getSmolContractTotalSupply();
 
-  // Hardcoded to 1B because the total supply is not minted yet
+  // Hardcoded because the total supply is not minted yet
   const totalSupply = 1_210_995_204.282397572845138055;
-  // const totalSupply = totalSupplyEth + totalSupplySol + totalSupplyTreasure;
+  // const totalSupply = totalSupplyEth + totalSupplySol;
 
   const excludedList = Object.entries(TOTAL_SUPPLY_EXCLUDED);
   const excludedBalances = await Promise.all(
@@ -63,7 +64,7 @@ export const getSmolTotalSupply = async (): Promise<TotalSupplyResult> => {
 
   return {
     totalSupply: totalSupply - totalExcluded,
-    totalSupplyTreasure,
+    totalSupplyAbstract,
     totalSupplyEth,
     totalSupplySol,
     excludedBalances: excludedList.map(([name, addresses], i) => ({

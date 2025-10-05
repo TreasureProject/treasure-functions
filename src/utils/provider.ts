@@ -1,47 +1,6 @@
 import { Connection, clusterApiUrl } from "@solana/web3.js";
-import {
-  Chain,
-  PublicClient,
-  createPublicClient,
-  defineChain,
-  fallback,
-  http,
-} from "viem";
-import { arbitrum, mainnet } from "viem/chains";
-
-const TREASURE_CHAIN_DEFINITION: Chain = {
-  id: 61166,
-  name: "Treasure",
-  nativeCurrency: {
-    name: "MAGIC",
-    symbol: "MAGIC",
-    decimals: 18,
-  },
-  rpcUrls: {
-    default: {
-      http: ["https://rpc.treasure.lol"],
-    },
-    public: {
-      http: ["https://rpc.treasure.lol"],
-    },
-  },
-  blockExplorers: {
-    default: {
-      name: "Treasure Explorer",
-      url: "https://treasurescan.io",
-    },
-  },
-};
-
-export const treasureClient: PublicClient = createPublicClient({
-  chain: defineChain(TREASURE_CHAIN_DEFINITION),
-  transport: fallback([
-    http(
-      `https://${TREASURE_CHAIN_DEFINITION.id}.rpc.thirdweb.com/${process.env.THIRDWEB_CLIENT_ID}`
-    ),
-    http(),
-  ]),
-});
+import { PublicClient, createPublicClient, fallback, http } from "viem";
+import { abstract, arbitrum, mainnet } from "viem/chains";
 
 export const arbitrumClient: PublicClient = createPublicClient({
   chain: arbitrum,
@@ -58,6 +17,18 @@ export const ethereumClient: PublicClient = createPublicClient({
   transport: fallback([
     http(
       `https://${mainnet.id}.rpc.thirdweb.com/${process.env.THIRDWEB_CLIENT_ID}`
+    ),
+    http(),
+  ]),
+});
+
+// @ts-expect-error: viem's built-in abstract chain definition creates some type
+// incompatibility that we don't see eith arbitrum or mainnet.
+export const abstractClient: PublicClient = createPublicClient({
+  chain: abstract,
+  transport: fallback([
+    http(
+      `https://${abstract.id}.rpc.thirdweb.com/${process.env.THIRDWEB_CLIENT_ID}`
     ),
     http(),
   ]),

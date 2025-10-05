@@ -1,26 +1,26 @@
 import { erc20Abi } from "viem";
 
 import {
+  CONTRACT_SMOL_ABSTRACT,
   CONTRACT_SMOL_L1,
   CONTRACT_SMOL_SOL,
-  CONTRACT_SMOL_TREASURE,
 } from "../constants";
 import { parseNumber } from "../utils/number";
-import { ethereumClient, treasureClient } from "../utils/provider";
+import { abstractClient, ethereumClient } from "../utils/provider";
 import { getTokenBalance, getTokenSupply } from "../utils/solana";
 
 interface TotalSupplyResult {
-  totalSupplyTreasure: number;
+  totalSupplyAbstract: number;
   totalSupplyEth: number;
   totalSupplySol: number;
 }
 
 export const getSmolContractTotalSupply =
   async (): Promise<TotalSupplyResult> => {
-    const [totalSupplyTreasure, totalSupplyEth, totalSupplySol] =
+    const [totalSupplyAbstract, totalSupplyEth, totalSupplySol] =
       await Promise.all([
-        treasureClient.readContract({
-          address: CONTRACT_SMOL_TREASURE,
+        abstractClient.readContract({
+          address: CONTRACT_SMOL_ABSTRACT,
           abi: erc20Abi,
           functionName: "totalSupply",
         }),
@@ -33,7 +33,7 @@ export const getSmolContractTotalSupply =
       ]);
 
     return {
-      totalSupplyTreasure: parseNumber(totalSupplyTreasure),
+      totalSupplyAbstract: parseNumber(totalSupplyAbstract),
       totalSupplyEth: parseNumber(totalSupplyEth),
       totalSupplySol: totalSupplySol, // Already in the correct format from getTokenSupply
     };
@@ -55,9 +55,9 @@ export const getSmolBalanceOf = async (
   }
 
   return parseNumber(
-    chain === "treasure"
-      ? await treasureClient.readContract({
-          address: CONTRACT_SMOL_TREASURE,
+    chain === "abstract"
+      ? await abstractClient.readContract({
+          address: CONTRACT_SMOL_ABSTRACT,
           abi: erc20Abi,
           functionName: "balanceOf",
           args: [address as `0x${string}`],

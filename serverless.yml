@@ -12,7 +12,10 @@ provider:
   region: us-east-1
   runtime: nodejs22.x
   environment:
-    ALCHEMY_API_KEY: ${env:ALCHEMY_API_KEY}
+    # Defaulted to empty so a missing or rotated-out key cannot fail the deploy.
+    # provider.ts treats an empty value as absent and runs on the public
+    # fallbacks, which is a degraded endpoint list rather than an outage.
+    ALCHEMY_API_KEY: ${env:ALCHEMY_API_KEY, ''}
     COINGECKO_API_KEY: ${env:COINGECKO_API_KEY}
     GOLDSKY_PROJECT_ID: ${env:GOLDSKY_PROJECT_ID}
     TROVE_API_KEY: ${env:TROVE_API_KEY}
